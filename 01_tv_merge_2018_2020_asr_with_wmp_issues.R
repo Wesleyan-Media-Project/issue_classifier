@@ -8,7 +8,7 @@ p_wmp18 <- "data/wmp-2018-all-nobltm-CREATIVE-wcoding_v1.0_120820.dta"
 
 p_asr20_1 <- "data/tv_2020_asr.csv"
 p_asr20_2 <- "data/tv_2020_asr_b2.csv"
-p_wmp20 <- "/run/media/m/Academia2/gh/datasets/tv/2020_creative_level_122120.dta"
+p_wmp20 <- "../datasets/tv/2020_creative_level_122120.dta"
 
 p_issues_of_interest <- "data/issues_of_interest.csv"
 
@@ -33,6 +33,9 @@ df18 <- left_join(wmp18, asr18, by = "filename")
 df18 <- df18[is.na(df18$transcript) == F,]
 names(df18)[1] <- "alt"
 
+# Add year
+df18$alt <- paste0("tv18-", df18$alt)
+
 #----
 # 2020
 # ASR
@@ -52,11 +55,16 @@ wmp20 <- wmp20[!na_row,]
 df20 <- left_join(wmp20, asr20, by = c("alt" = "filename"))
 df20 <- df20[is.na(df20$transcript) == F,]
 
+# Add year
+df20$alt <- paste0("tv20-", df20$alt)
+
 #----
-df <- bind_rows(df20, df18) #20, 18 order is so that the transcript var ends up at the end
+df <- bind_rows(df18, df20)
+
 issues <- fread(p_issues_of_interest)
 issues <- issues$issue_code[issues$issue_frequency>=100]
-issues <- issues[order(as.integer(str_remove(issues, "ISSUE")))] # sort
+issues <- issues[order(as.integer(str_remove(issues, "ISSUE")))] # sort issue columns
+issues <- issues[!issues %in% c("ISSUE116", "ISSUE209")]
 
 df <- df[,c('alt', 'transcript', issues)]
 fwrite(df, "data/issues_asr_18_20.csv")
