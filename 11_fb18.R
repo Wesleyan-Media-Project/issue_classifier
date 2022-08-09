@@ -24,16 +24,17 @@ fb_features_asr <- fb_features %>% filter(attr_type == "video_transcript") %>%
 fb_features_asr <- fb_features_asr[!duplicated(fb_features_asr$alt),]
 
 fb_features <- full_join(fb_features_acb, fb_features_asr, by = "alt")
-fb_features <- fb_features %>% unite("text", text, asr, sep = " ")
+fb_features <- fb_features %>% unite("text", text, asr, sep = " ", na.rm = T)
 fb_features <- fb_features %>% select(-attr_type)
 
 # Combine issue coding and ad text
-df <- left_join(fb_codes, fb_features, by = "alt")
-df <- df %>% relocate(text, .after = alt)
-df <- df %>% rename(transcript = text)
-df <- df %>% mutate(transcript = str_replace_all(transcript, "\n", " "))
-df <- df %>% mutate(transcript = str_squish(transcript))
-df <- df %>% mutate(alt = str_replace(alt, 'fb-', 'fb18-'))
-fb18 <- df
+fb18 <- left_join(fb_codes, fb_features, by = "alt")
+fb18 <- fb18 %>% relocate(text, .after = alt)
+fb18 <- fb18 %>% rename(transcript = text)
+fb18 <- fb18 %>% mutate(transcript = str_replace_all(transcript, "\n", " "))
+fb18 <- fb18 %>% mutate(transcript = str_squish(transcript))
+fb18 <- fb18 %>% mutate(alt = str_replace(alt, 'fb-', 'fb18-'))
+fb18 <- fb18[is.na(fb18$transcript) == F,]
+fb18 <- fb18[fb18$transcript != "",]
 
 save(fb18, file = "data/fb_18_issues_transcripts.rdata")
