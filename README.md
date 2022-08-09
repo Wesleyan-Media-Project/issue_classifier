@@ -1,1 +1,11 @@
-# issue_classifier
+# Issue Classifier
+
+Issue classifier, trained on 2018 and 2020 ads - both TV and Facebook, designed to be applied to uncoded 2022 ads. Based on WMP issue coding - not Kantar.
+
+Given that an ad can have multiple issues - or none - there are two basic approaches - one is to use a binary classifier for each issue separately, the other to use a multilabel classifier which processes all issues together. The binary classifiers tend to have higher precision but lower recall, the multilabel classifiers lower precision and higher recall. The multilabel classifiers have higher F1 score (all measures noted here are for the 1s of each class only, since predicting the 0s is very easy - predicting 0 all the time would yield something like 97-98% accuracy).
+
+The 2018 WMP coding is missing a few of the issues that were coded in 2020. Furthermore, a few ads here and there are missing random issues. For both of these problems, we do imputation by training binary classifiers for each issue with missing data. The binary classifiers are better for this since a) we want to be cautious and err on the side of more 0s, and b) we want to use as much data as possible for imputation, and the multilabel model can only use the ads for which no issues are missing, even if those other issues wouldn't matter for imputing for just one issue. Imputation is done by training models on Facebook data and then imputing the missing Facebook data, and training models on TV data and then imputing the missing TV data. So the two types of media are handled separately for imputing.
+
+For the final model, to be used for inference, we use a transformer-based multilabel model, mostly based on the [code](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/C9SAIX) by a recent [Political Analysis article](https://www.cambridge.org/core/journals/political-analysis/article/creating-and-comparing-dictionary-word-embedding-and-transformerbased-models-to-measure-discrete-emotions-in-german-political-text/2DA41C0F09DE1CA600B3DCC647302637#article). That paper is for German data though, so I used a Distilbert instead of their German Electra.
+
+To decide which issues to classify, we looked at which issues occurred at least 100 times in the TV data, and excluded two (Issue 116 and 209) that were problematic. So we have 65 issues. The file `data/issues_of_interest.csv` contains the list this is based on.
