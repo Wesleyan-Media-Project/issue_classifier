@@ -33,6 +33,7 @@ df <- df %>% relocate(text, .after = alt)
 df <- df %>% rename(transcript = text)
 df <- df %>% mutate(transcript = str_replace_all(transcript, "\n", " "))
 df <- df %>% mutate(transcript = str_squish(transcript))
+df <- df %>% mutate(alt = str_replace(alt, 'fb-', 'fb18-'))
 fb18 <- df
 
 save(fb18, file = "data/fb_18_issues_transcripts.rdata")
