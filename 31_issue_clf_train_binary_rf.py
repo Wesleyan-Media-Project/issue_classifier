@@ -51,7 +51,7 @@ for g in issue_cols:
   perf.append(df_p)
   
   # Save model to disk
-  dump(clf_rf, 'E:/aca/clfs/issues/models/issues_rf_' + g + '.joblib')
+  dump(clf_rf, 'models/binary_rf_v1/issues_rf_' + g + '.joblib')
 
 df_ps = pd.concat(perf)
-df_ps.to_csv("performance/random_forest.csv")
+df_ps.to_csv("performance/performance_binomial_random_forest.csv")

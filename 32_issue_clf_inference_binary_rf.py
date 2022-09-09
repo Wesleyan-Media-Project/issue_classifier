@@ -12,7 +12,7 @@ import pandas as pd
 import numpy as np
 from joblib import dump, load
 
-dir_models = 'E:/aca/clfs/issues/models'
+dir_models = 'models/binary_rf_v1'
 path_inference_set = 'data/inference/tv2022_fedgov_asr_0807.csv'
 path_inference_set_output = 'data/inference/tv2022_fedgov_asr_0807_output_binary_clfs.csv'
 
