@@ -7,17 +7,23 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 from joblib import dump, load
 
 #results_dir = 'performance'
 
-train = pd.read_csv('data/train.csv')
-test = pd.read_csv('data/test.csv')
+df_train_validation_test = pd.read_csv('data/issues_tv_fb_18_20.csv')
 
-train = train.dropna(axis = 0)
-test = test.dropna(axis = 0)
+df_train, df_test = train_test_split(
+    df_train_validation_test, test_size=0.1, random_state=7
+)
+
+issue_cols = [x for x in df_train.columns if 'ISSUE' in x]
+
+df_train = df_train.dropna(axis = 0)
+df_test = df_test.dropna(axis = 0)
 
 clf_rf = Pipeline([('vect', CountVectorizer()),
                     ('tfidf', TfidfTransformer()),
@@ -26,18 +32,17 @@ clf_rf = Pipeline([('vect', CountVectorizer()),
 
 model_name = 'rf'
 
-issue_cols = [x for x in train.columns if 'issue_' in x]
 perf = []
 for g in issue_cols:
   
-  #clf_rf.fit(train['transcript'], train[g])
-  clf_rf = load('models/issues_rf_' + g + '.joblib')
-  predicted = clf_rf.predict(test['transcript'])
+  clf_rf.fit(df_train['transcript'], df_train[g])
+  #clf_rf = load('models/issues_rf_' + g + '.joblib')
+  predicted = clf_rf.predict(df_test['transcript'])
   
   #print(metrics.classification_report(test[g], predicted))
   
   #df_p = pd.DataFrame(metrics.classification_report(test[g], predicted, output_dict=True)['weighted avg'], index = [g])
-  prfs = metrics.precision_recall_fscore_support(test[g], predicted, average='binary')
+  prfs = metrics.precision_recall_fscore_support(df_test[g], predicted, average='binary')
   df_p = pd.DataFrame({'precision': prfs[0], 'recall': prfs[1], 'f1': prfs[2]}, index = [g])
   
   #df_perf = pd.DataFrame(metrics.precision_recall_fscore_support(test[g], predicted))
@@ -46,7 +51,7 @@ for g in issue_cols:
   perf.append(df_p)
   
   # Save model to disk
-  dump(clf_rf, 'models/issues_rf_' + g + '.joblib')
+  dump(clf_rf, 'E:/aca/clfs/issues/models/issues_rf_' + g + '.joblib')
 
 df_ps = pd.concat(perf)
 df_ps.to_csv("performance/random_forest.csv")
