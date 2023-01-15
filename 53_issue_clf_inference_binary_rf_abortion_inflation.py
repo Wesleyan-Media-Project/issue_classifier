@@ -13,13 +13,13 @@ import numpy as np
 from joblib import dump, load
 
 # In
-path_inference_set = '../datasets/facebook/fb2022_master_0905_1108.csv.gz'
+path_inference_set = 'data/inference/fb2022.csv.gz'
 # Out
 path_inference_set_output = 'data/inference/fb2022_master_0905_1108_output_binary_abortion_inflation.csv'
 
 #----
 # Load the inference dataset
-text_field = 'ad_creative_body'
+text_field = 'transcript'
 df = pd.read_csv(path_inference_set, dtype = 'str')
 df = df.dropna(subset = [text_field]) # remove NAs
 df = df[df[text_field] != '_error'] # remove errors
@@ -35,12 +35,11 @@ predicted_inflation = clf_rf_abortion.predict(df[text_field])
 
 
 
-#----
+# Add results to dataframe and save
 df_results = df.copy()
 df_results['predicted_abortion'] = predicted_abortion
 df_results['predicted_inflation'] = predicted_inflation
 df_results = df_results[['id','predicted_abortion','predicted_inflation']]
 df_results = df_results.rename(columns={"id": "ad_id"})
-df_results['ad_id'] = 'x'+df_results['ad_id']
 
 df_results.to_csv(path_inference_set_output, index = False)
