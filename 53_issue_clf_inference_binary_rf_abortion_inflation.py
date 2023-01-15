@@ -30,8 +30,8 @@ clf_rf_abortion = load('models/binary_rf_2022_abortion_inflation/issues_rf_abort
 predicted_abortion = clf_rf_abortion.predict(df[text_field])
 
 # Inflation
-clf_rf_inflation = load('models/binary_rf_2022_abortion_inflation/issues_rf_abortion.joblib')
-predicted_inflation = clf_rf_abortion.predict(df[text_field])
+clf_rf_inflation = load('models/binary_rf_2022_abortion_inflation/issues_rf_inflation.joblib')
+predicted_inflation = clf_rf_inflation.predict(df[text_field])
 
 
 
