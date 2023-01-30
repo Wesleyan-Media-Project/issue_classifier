@@ -1,0 +1,12 @@
+issue,keywords,number_of_discrepancies,prop_keyword_hits
+issue_healthcare,healthcare|health care,1774,0.258173618940248
+issue_coronavirus,corona|covid|pandemic,1294,0.412673879443586
+issue_jobs,job|employment|unemployed,1104,0.627717391304348
+issue_taxes,tax,1123,0.641139804096171
+issue_economy,econom,638,0.59717868338558
+issue_rxdrugs,prescription,532,0.37218045112782
+issue_campaignfinance,campaign finance|campaign money|campaign cash,551,0.0199637023593466
+issue_ed,educat|college|school,477,0.488469601677149
+issue_immigration,immigra,480,0.241666666666667
+issue_guncontrol,gun control|Second Amendment|second amendment|NRA,345,0.295652173913044
+issue_social_abortion,abort|pro-life|pro-choice,287,0.348432055749129

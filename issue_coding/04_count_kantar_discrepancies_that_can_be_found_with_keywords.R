@@ -3,8 +3,6 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
-setwd("ads_that_kantar_codes_and_we_dont/")
-
 files <- c("issue_healthcare.csv",
            "issue_coronavirus.csv",
            "issue_jobs.csv",
@@ -35,7 +33,7 @@ df_keyword_hits <- data.frame(issue = str_remove(files, ".csv"),
                               prop_keyword_hits = NA)
 
 for(i in 1:length(files)){
-  df <- fread(files[i])
+  df <- fread(paste0("data/ads_that_kantar_codes_and_we_dont/", files[i]))
   len_discrepancies <- nrow(df)
   n_keyword_hits <- length(which(str_detect(df$transcript, keywords[i])))
   prop_keyword_hits <- n_keyword_hits/len_discrepancies
@@ -45,5 +43,5 @@ for(i in 1:length(files)){
   
 }
 
-fwrite(df_keyword_hits, "../count_kantar_discrepancies_that_can_be_found_with_keywords.csv")
+fwrite(df_keyword_hits, "data/count_kantar_discrepancies_that_can_be_found_with_keywords.csv")
 
