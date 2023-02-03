@@ -1,6 +1,6 @@
 # Create a dataframe mapping from WMP to Kantar issues
 # And calculate the proportion of WMP codings compared to Kantar for each of these issues
-# Natalia is working on this
+
 library(data.table)
 library(haven)
 library(dplyr)
