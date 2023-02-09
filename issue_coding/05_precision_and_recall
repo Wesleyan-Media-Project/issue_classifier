@@ -1,7 +1,7 @@
 library(dplyr)
 
 # set the path to the folder containing the csv files
-folder_path <- "/data/ads_where_kantar_wmp_disagree"
+folder_path <- "data/ads_where_kantar_wmp_disagree"
 
 # Get the list of file names in the folder
 file_names <- list.files(folder_path)
@@ -33,7 +33,7 @@ for (file_name in file_names) {
   recall_kantar_wmp <- tp / (tp + fn)
   
   # Add a row to the results dataframe with the calculated values
-  results_df <- rbind(results_df, data.frame(kantar_issue = kantar_col, wmp_issue = wmp_col, precision_wmp_kantar, recall_wmp_kantar, precision_kantar_wmp, recall_kantar_wmp))
+  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[5], wmp_issue = names(df)[4], precision_wmp_kantar, recall_wmp_kantar, precision_kantar_wmp, recall_kantar_wmp))
 }
 
 # Write the results dataframe to a CSV file
