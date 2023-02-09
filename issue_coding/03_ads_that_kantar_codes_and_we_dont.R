@@ -8,6 +8,13 @@ library(haven)
 map <- fread("data/compare_2020_cmag_wmp_issue_frequency.csv")
 df <- read_dta("../../datasets/tv/2020_creative_level_122120.dta")
 alphas <- readxl::read_xlsx("data/2020_TV_Alphas_Final.xlsx")
+
+map2 <- fread("data/mapping_cmag_wmp_issues.csv", header = T)
+#Cleans the data in map by removing the rows that contain the characters "=|&" or are empty in the "Related WMP var" column.
+map2 <- map2[!str_detect(map2$`Related WMP var`, '=|\\&'),]
+map2 <- map2[map2$`Related WMP var` != "",]
+
+
 # ASR
 p_asr <- "../data/tv_2020_asr.csv"
 p_asr_2 <- "../data/tv_2020_asr_b2.csv"
@@ -25,12 +32,27 @@ df_asr <- df_asr %>% select(-stt_confidence)
 df <- left_join(df, df_asr, by = c('alt' = 'filename'))
 df <- df[is.na(df$transcript)==F,]
 
+
 #Replacing missing values with 0 in the "issue_social_abortion" and "ISSUE30" columns
 df$issue_social_abortion[is.na(df$issue_social_abortion)] <- 0
 df$ISSUE30[is.na(df$ISSUE30)] <- 0
 
 #Creating a new variable or column "only_K_abort" using a logical expression based on the values in "issue_social_abortion" and "ISSUE30" columns
 df$only_K_abort <- (df$issue_social_abortion == 1) & (df$ISSUE30 == 0)
+
+df0 <- df[,match(map$wmp_var, names(df))]
+
+
+#df1 <- df[,c(match(map2$wmp_var, names(df)), which(names(df) %in% c("alt", "transcript", "link")))]
+#Check if df vs df_not_kantar is supposed to be on the left or right or both  
+#df2 <- df[,c(match(map2$`Related WMP var`, names(df)), which(names(df) %in% c("alt", "transcript", "link")))]
+
+#df_merged <- merge(df1, df2, by = "link", all = TRUE)
+
+if (!dir.exists("data/ads_where_kantar_wmp_disagree")) {
+  dir.create("data/ads_where_kantar_wmp_disagree")
+}
+
 
 # Looping through the rows in map, checking if the "wmp_prop" is less than 0.8.
 for(i in 1:nrow(map)){
@@ -60,8 +82,25 @@ for(i in 1:nrow(map)){
     
     fwrite(df_kantar, paste0("data/ads_that_kantar_codes_and_we_dont/", issue_cmag, ".csv"))
     
+    
+    #Filtering df for only the rows where discrep is true and selecting columns
+    discrep <- ((df[issue_cmag] == 1) & (df[issue_wmp] == 0)) | ((df[issue_cmag] == 0) & (df[issue_wmp] == 1))
+    
+    df_discrep <- df %>%
+      filter(discrep == T) %>%
+      select(alt, transcript, link, issue_wmp, issue_cmag)
+
+    
+    fwrite(df_discrep, paste0("data/ads_where_kantar_wmp_disagree/", issue_cmag, ".csv"))
+    
+    
+    
   }
 }
 
 
 #issues <- fread("../data/issues_of_interest.csv")
+
+
+
+
