@@ -3,6 +3,8 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
+
+
 files <- c("issue_healthcare.csv",
            "issue_coronavirus.csv",
            "issue_jobs.csv",
@@ -14,6 +16,10 @@ files <- c("issue_healthcare.csv",
            "issue_immigration.csv",
            "issue_guncontrol.csv",
            "issue_social_abortion.csv")
+
+#see if transcript contains these words
+#if ad contains keyword, code it as 1
+# then see precision and recall of that new column
 
 keywords <- c("healthcare|health care",
               "corona|covid|pandemic",
