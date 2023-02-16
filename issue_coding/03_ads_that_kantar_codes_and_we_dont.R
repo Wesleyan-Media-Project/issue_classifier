@@ -10,6 +10,7 @@ df <- read_dta("../../datasets/tv/2020_creative_level_122120.dta")
 alphas <- readxl::read_xlsx("data/2020_TV_Alphas_Final.xlsx")
 
 map2 <- fread("data/mapping_cmag_wmp_issues.csv", header = T)
+
 #Cleans the data in map by removing the rows that contain the characters "=|&" or are empty in the "Related WMP var" column.
 map2 <- map2[!str_detect(map2$`Related WMP var`, '=|\\&'),]
 map2 <- map2[map2$`Related WMP var` != "",]
@@ -32,10 +33,33 @@ df_asr <- df_asr %>% select(-stt_confidence)
 df <- left_join(df, df_asr, by = c('alt' = 'filename'))
 df <- df[is.na(df$transcript)==F,]
 
+missing_social_abortion <- list()
+
+missing_ISSUE30 <- list()
+
+
+#Only inputs 0s twice
+for (i in 1:nrow(df)) {
+  if (is.na(df$issue_social_abortion[i])) {
+    missing_social_abortion <- c(missing, df$alt[i])
+    df$issue_social_abortion[i]<- 0
+  }
+}
+
+for (i in 1:nrow(df)) {
+  if (is.na(df$ISSUE30[i])) {
+    missing_ISSUE30 <- c(missing, df$alt[i])
+    df$issue_social_abortion[i]<- 0
+  }
+}
+
+
 
 #Replacing missing values with 0 in the "issue_social_abortion" and "ISSUE30" columns
-df$issue_social_abortion[is.na(df$issue_social_abortion)] <- 0
-df$ISSUE30[is.na(df$ISSUE30)] <- 0
+#check this 
+#df$issue_social_abortion[is.na(df$issue_social_abortion)] <- 0
+#df$ISSUE30[is.na(df$ISSUE30)] <- 0
+
 
 #Creating a new variable or column "only_K_abort" using a logical expression based on the values in "issue_social_abortion" and "ISSUE30" columns
 df$only_K_abort <- (df$issue_social_abortion == 1) & (df$ISSUE30 == 0)
@@ -49,6 +73,10 @@ df0 <- df[,match(map$wmp_var, names(df))]
 
 #df_merged <- merge(df1, df2, by = "link", all = TRUE)
 
+missing_wmp <- list()
+missing_cmag <- list()
+
+
 if (!dir.exists("data/ads_where_kantar_wmp_disagree")) {
   dir.create("data/ads_where_kantar_wmp_disagree")
 }
@@ -59,12 +87,35 @@ for(i in 1:nrow(map)){
   if(map$wmp_prop[1] < .8){
     
     #Replacing missing values in issue_cmag and issue_wmp with 0
+    
     issue_wmp <- map$issue_wmp[i]
     issue_cmag <- map$issue_cmag[i]
+    
+    
+    # I am very confused as to why this doesnt work but I think the number of times where 0 is inputted should be accounted for 
+    #for (i in 1:nrow(df)) {
+    #  if (is.na(df[i, issue_cmag])) {
+    #    missing_cmag[[length(missing_cmag) + 1]] <- df[i, "alt"]
+    #    df <- df[-i, ]
+    #  }
+    #}
+    
+    #for (i in 1:nrow(df)) {
+    #  if (is.na(df[i, issue_wmp])) {
+    #    missing_wmp[[length(missing_wmp) + 1]] <- df[i, "alt"]
+    #    df <- df[-i, ]
+    #  }
+    #}
+    
+    
+    
     
     df[issue_cmag][is.na(df[issue_cmag])] <- 0
     df[issue_wmp][is.na(df[issue_wmp])] <- 0
     
+
+
+
     #Creating a new variable "only_K" using a logical expression based on the values in issue_cmag and issue_wmp
     only_K <- (df[issue_cmag] == 1) & (df[issue_wmp] == 1)
     
@@ -87,7 +138,6 @@ for(i in 1:nrow(map)){
     discrep <- ((df[issue_cmag] == 1) & (df[issue_wmp] == 0)) | ((df[issue_cmag] == 0) & (df[issue_wmp] == 1))
     
     df_discrep <- df %>%
-      filter(discrep == T) %>%
       select(alt, transcript, link, issue_wmp, issue_cmag)
 
     
