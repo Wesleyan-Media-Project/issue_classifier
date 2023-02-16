@@ -55,8 +55,7 @@ for (i in 1:nrow(df)) {
 
 
 
-#Replacing missing values with 0 in the "issue_social_abortion" and "ISSUE30" columns
-#check this 
+#Old way of replacing missing values with 0 in the "issue_social_abortion" and "ISSUE30" columns
 #df$issue_social_abortion[is.na(df$issue_social_abortion)] <- 0
 #df$ISSUE30[is.na(df$ISSUE30)] <- 0
 
