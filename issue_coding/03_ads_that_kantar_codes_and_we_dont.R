@@ -55,7 +55,7 @@ for (i in 1:nrow(df)) {
 
 
 
-#Old way of replacing missing values with 0 in the "issue_social_abortion" and "ISSUE30" columns
+#Old way of Replacing missing values with 0 in the "issue_social_abortion" and "ISSUE30" columns
 #df$issue_social_abortion[is.na(df$issue_social_abortion)] <- 0
 #df$ISSUE30[is.na(df$ISSUE30)] <- 0
 
@@ -91,26 +91,24 @@ for(i in 1:nrow(map)){
     issue_cmag <- map$issue_cmag[i]
     
     
+    
     # I am very confused as to why this doesnt work but I think the number of times where 0 is inputted should be accounted for 
-    #for (i in 1:nrow(df)) {
-    #  if (is.na(df[i, issue_cmag])) {
-    #    missing_cmag[[length(missing_cmag) + 1]] <- df[i, "alt"]
-    #    df <- df[-i, ]
-    #  }
-    #}
+    temp_df <- df
     
-    #for (i in 1:nrow(df)) {
-    #  if (is.na(df[i, issue_wmp])) {
-    #    missing_wmp[[length(missing_wmp) + 1]] <- df[i, "alt"]
-    #    df <- df[-i, ]
-    #  }
-    #}
-    
+    j <- 1
+    n <- nrow(temp_df)
+    while (j < n) {
+      if ((is.na(temp_df[j, issue_cmag]) | is.na(temp_df[j, issue_wmp]))[1]) {
+        missing_cmag[[length(missing_cmag) + 1]] <- temp_df[j, "alt"]
+        temp_df <- temp_df[-j, ]
+        n <- n - 1
+      } 
+      j <- j + 1
+    }
     
     
-    
-    df[issue_cmag][is.na(df[issue_cmag])] <- 0
-    df[issue_wmp][is.na(df[issue_wmp])] <- 0
+    #df[issue_cmag][is.na(df[issue_cmag])] <- 0
+    #df[issue_wmp][is.na(df[issue_wmp])] <- 0
     
 
 
@@ -121,7 +119,7 @@ for(i in 1:nrow(map)){
     #Filtering df for only the rows where only_K is true and selecting columns
     df_kantar <- df %>%
       filter(only_K == T) %>%
-      select(alt, transcript, link)
+      select(all_of(alt, transcript, link))
     
     #Creating new variables "alpha" and "wmp_ratio" using values from alphas and map respectively
     
@@ -134,10 +132,8 @@ for(i in 1:nrow(map)){
     
     
     #Filtering df for only the rows where discrep is true and selecting columns
-    discrep <- ((df[issue_cmag] == 1) & (df[issue_wmp] == 0)) | ((df[issue_cmag] == 0) & (df[issue_wmp] == 1))
-    
-    df_discrep <- df %>%
-      select(alt, transcript, link, issue_wmp, issue_cmag)
+    df_discrep <- temp_df %>%
+      select(all_of(alt, transcript, link, issue_wmp, issue_cmag))
 
     
     fwrite(df_discrep, paste0("data/ads_where_kantar_wmp_disagree/", issue_cmag, ".csv"))
