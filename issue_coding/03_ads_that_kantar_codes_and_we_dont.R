@@ -8,13 +8,11 @@ library(haven)
 map <- fread("data/compare_2020_cmag_wmp_issue_frequency.csv")
 df <- read_dta("../../datasets/tv/2020_creative_level_122120.dta")
 alphas <- readxl::read_xlsx("data/2020_TV_Alphas_Final.xlsx")
-
 map2 <- fread("data/mapping_cmag_wmp_issues.csv", header = T)
 
 #Cleans the data in map by removing the rows that contain the characters "=|&" or are empty in the "Related WMP var" column.
 map2 <- map2[!str_detect(map2$`Related WMP var`, '=|\\&'),]
 map2 <- map2[map2$`Related WMP var` != "",]
-
 
 # ASR
 p_asr <- "../data/tv_2020_asr.csv"
@@ -34,7 +32,6 @@ df <- left_join(df, df_asr, by = c('alt' = 'filename'))
 df <- df[is.na(df$transcript)==F,]
 
 missing_social_abortion <- list()
-
 missing_ISSUE30 <- list()
 
 
@@ -46,6 +43,7 @@ for (i in 1:nrow(df)) {
   }
 }
 
+#Also only inputs 0s twice
 for (i in 1:nrow(df)) {
   if (is.na(df$ISSUE30[i])) {
     missing_ISSUE30 <- c(missing, df$alt[i])
@@ -53,27 +51,8 @@ for (i in 1:nrow(df)) {
   }
 }
 
-
-
-#Old way of Replacing missing values with 0 in the "issue_social_abortion" and "ISSUE30" columns
-#df$issue_social_abortion[is.na(df$issue_social_abortion)] <- 0
-#df$ISSUE30[is.na(df$ISSUE30)] <- 0
-
-
 #Creating a new variable or column "only_K_abort" using a logical expression based on the values in "issue_social_abortion" and "ISSUE30" columns
 df$only_K_abort <- (df$issue_social_abortion == 1) & (df$ISSUE30 == 0)
-
-#df0 <- df[,match(map$wmp_var, names(df))]
-
-
-#df1 <- df[,c(match(map2$wmp_var, names(df)), which(names(df) %in% c("alt", "transcript", "link")))]
-#Check if df vs df_not_kantar is supposed to be on the left or right or both  
-#df2 <- df[,c(match(map2$`Related WMP var`, names(df)), which(names(df) %in% c("alt", "transcript", "link")))]
-
-#df_merged <- merge(df1, df2, by = "link", all = TRUE)
-
-#missing_wmp <- list()
-#missing_values_in_both <- list()
 
 
 if (!dir.exists("data/ads_where_kantar_wmp_disagree")) {
@@ -89,31 +68,6 @@ for(i in 1:nrow(map)){
     
     issue_wmp <- map$issue_wmp[i]
     issue_cmag <- map$issue_cmag[i]
-    
-    
-    
-    #temp_df <- df[!(is.na(df[j, issue_cmag]) | is.na(df[j, issue_wmp]))[1],]
-    #x <-sum(!is.na(temp_dfissue_cmag) & !is.na(temp_df$issue_wmp))
-    
-    #temp_df <- subset(df, complete.cases(df[c(issue_cmag, issue_wmp)]))
-    #missing_values_in_both[[length(missing_values_in_both) + 1]] <- sum(!is.na(temp_df[issue_cmag]) | !is.na(temp_df[issue_wmp]))
-    
-    
-    
-    #missing_cmag[[length(missing_cmag) + 1]] <- x
-    
-
-    #j <- 1
-    #n <- nrow(temp_df)
-    #while (j < n) {
-    #  if ((is.na(temp_df[j, issue_cmag]) | is.na(temp_df[j, issue_wmp]))[1]) {
-    #    missing_cmag[[length(missing_cmag) + 1]] <- temp_df[j, "alt"]
-    #    temp_df <- temp_df[-j, ]
-    #    n <- n - 1
-    #  } 
-    #  j <- j + 1
-    #}
-    #count <- sum(df$a > 3)
     
     df[issue_cmag][is.na(df[issue_cmag])] <- 0
     df[issue_wmp][is.na(df[issue_wmp])] <- 0
@@ -138,12 +92,7 @@ for(i in 1:nrow(map)){
     
     #Filtering df for only the rows where discrep is true and selecting columns
     df_discrep <- temp_df %>%
-      select(alt, transcript, link, issue_wmp, issue_cmag)
-    
-
-
-    
-
+      select(alt, transcript, link, issue_wmp, issue_cmag
     
     fwrite(df_discrep, paste0("data/ads_where_kantar_wmp_disagree/", issue_cmag, ".csv"))
     
@@ -152,7 +101,3 @@ for(i in 1:nrow(map)){
 
 
 #issues <- fread("../data/issues_of_interest.csv")
-
-
-
-
