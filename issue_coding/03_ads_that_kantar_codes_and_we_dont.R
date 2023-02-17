@@ -63,7 +63,7 @@ for (i in 1:nrow(df)) {
 #Creating a new variable or column "only_K_abort" using a logical expression based on the values in "issue_social_abortion" and "ISSUE30" columns
 df$only_K_abort <- (df$issue_social_abortion == 1) & (df$ISSUE30 == 0)
 
-df0 <- df[,match(map$wmp_var, names(df))]
+#df0 <- df[,match(map$wmp_var, names(df))]
 
 
 #df1 <- df[,c(match(map2$wmp_var, names(df)), which(names(df) %in% c("alt", "transcript", "link")))]
@@ -73,7 +73,7 @@ df0 <- df[,match(map$wmp_var, names(df))]
 #df_merged <- merge(df1, df2, by = "link", all = TRUE)
 
 #missing_wmp <- list()
-missing_values_in_both <- list()
+#missing_values_in_both <- list()
 
 
 if (!dir.exists("data/ads_where_kantar_wmp_disagree")) {
@@ -95,8 +95,8 @@ for(i in 1:nrow(map)){
     #temp_df <- df[!(is.na(df[j, issue_cmag]) | is.na(df[j, issue_wmp]))[1],]
     #x <-sum(!is.na(temp_dfissue_cmag) & !is.na(temp_df$issue_wmp))
     
-    temp_df <- subset(df, complete.cases(df[c(issue_cmag, issue_wmp)]))
-    missing_values_in_both[[length(missing_values_in_both) + 1]] <- sum(!is.na(temp_df[issue_cmag]) & !is.na(temp_df[issue_wmp]))
+    #temp_df <- subset(df, complete.cases(df[c(issue_cmag, issue_wmp)]))
+    #missing_values_in_both[[length(missing_values_in_both) + 1]] <- sum(!is.na(temp_df[issue_cmag]) | !is.na(temp_df[issue_wmp]))
     
     
     
@@ -115,8 +115,8 @@ for(i in 1:nrow(map)){
     #}
     #count <- sum(df$a > 3)
     
-    #df[issue_cmag][is.na(df[issue_cmag])] <- 0
-    #df[issue_wmp][is.na(df[issue_wmp])] <- 0
+    df[issue_cmag][is.na(df[issue_cmag])] <- 0
+    df[issue_wmp][is.na(df[issue_wmp])] <- 0
     
     #Creating a new variable "only_K" using a logical expression based on the values in issue_cmag and issue_wmp
     only_K <- (df[issue_cmag] == 1) & (df[issue_wmp] == 1)
@@ -139,6 +139,10 @@ for(i in 1:nrow(map)){
     #Filtering df for only the rows where discrep is true and selecting columns
     df_discrep <- temp_df %>%
       select(alt, transcript, link, issue_wmp, issue_cmag)
+    
+
+
+    
 
     
     fwrite(df_discrep, paste0("data/ads_where_kantar_wmp_disagree/", issue_cmag, ".csv"))
