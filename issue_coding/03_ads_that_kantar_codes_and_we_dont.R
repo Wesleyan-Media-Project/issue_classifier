@@ -37,7 +37,6 @@ missing_social_abortion <- list()
 
 missing_ISSUE30 <- list()
 
-
 #Only inputs 0s twice
 for (i in 1:nrow(df)) {
   if (is.na(df$issue_social_abortion[i])) {
@@ -53,24 +52,8 @@ for (i in 1:nrow(df)) {
   }
 }
 
-
-
-#Old way of replacing missing values with 0 in the "issue_social_abortion" and "ISSUE30" columns
-#df$issue_social_abortion[is.na(df$issue_social_abortion)] <- 0
-#df$ISSUE30[is.na(df$ISSUE30)] <- 0
-
-
 #Creating a new variable or column "only_K_abort" using a logical expression based on the values in "issue_social_abortion" and "ISSUE30" columns
 df$only_K_abort <- (df$issue_social_abortion == 1) & (df$ISSUE30 == 0)
-
-df0 <- df[,match(map$wmp_var, names(df))]
-
-
-#df1 <- df[,c(match(map2$wmp_var, names(df)), which(names(df) %in% c("alt", "transcript", "link")))]
-#Check if df vs df_not_kantar is supposed to be on the left or right or both  
-#df2 <- df[,c(match(map2$`Related WMP var`, names(df)), which(names(df) %in% c("alt", "transcript", "link")))]
-
-#df_merged <- merge(df1, df2, by = "link", all = TRUE)
 
 missing_wmp <- list()
 missing_cmag <- list()
@@ -90,25 +73,6 @@ for(i in 1:nrow(map)){
     issue_wmp <- map$issue_wmp[i]
     issue_cmag <- map$issue_cmag[i]
     
-    
-    # I am very confused as to why this doesnt work but I think the number of times where 0 is inputted should be accounted for 
-    #for (i in 1:nrow(df)) {
-    #  if (is.na(df[i, issue_cmag])) {
-    #    missing_cmag[[length(missing_cmag) + 1]] <- df[i, "alt"]
-    #    df <- df[-i, ]
-    #  }
-    #}
-    
-    #for (i in 1:nrow(df)) {
-    #  if (is.na(df[i, issue_wmp])) {
-    #    missing_wmp[[length(missing_wmp) + 1]] <- df[i, "alt"]
-    #    df <- df[-i, ]
-    #  }
-    #}
-    
-    
-    
-    
     df[issue_cmag][is.na(df[issue_cmag])] <- 0
     df[issue_wmp][is.na(df[issue_wmp])] <- 0
     
@@ -126,21 +90,12 @@ for(i in 1:nrow(map)){
     df_kantar$wmp_ratio <- map$wmp_prop[1]
     
     #Writing the filtered and modified df to a file named issue_cmag.csv in the "data/ads_that_kantar_codes_and_we_dont" directory
-    
     fwrite(df_kantar, paste0("data/ads_that_kantar_codes_and_we_dont/", issue_cmag, ".csv"))
     
-    
-    #Filtering df for only the rows where discrep is true and selecting columns
-    discrep <- ((df[issue_cmag] == 1) & (df[issue_wmp] == 0)) | ((df[issue_cmag] == 0) & (df[issue_wmp] == 1))
-    
+    #Creating Csv
     df_discrep <- df %>%
       select(alt, transcript, link, issue_wmp, issue_cmag)
-    
-    
     fwrite(df_discrep, paste0("data/ads_where_kantar_wmp_disagree/", issue_cmag, ".csv"))
-    
-    
-    
   }
 }
 
