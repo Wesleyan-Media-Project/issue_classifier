@@ -36,5 +36,7 @@ for (file_name in file_names) {
   results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[5], wmp_issue = names(df)[4], precision_wmp_kantar, recall_wmp_kantar, precision_kantar_wmp, recall_kantar_wmp))
 }
 
+fwrite(df_discrep, paste0("data/ads_where_kantar_wmp_disagree/", issue_cmag, ".csv"))
+
 # Write the results dataframe to a CSV file.
-write.csv(results_df, "precision_recall_results.csv")
+write.csv(results_df, "data/precision_recall_results.csv")
