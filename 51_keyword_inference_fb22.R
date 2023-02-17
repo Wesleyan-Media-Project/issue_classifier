@@ -5,12 +5,12 @@ library(stringr)
 library(haven)
 
 # TV
-cmag <- read_dta("../datasets/tv/Ads2022_IssuesbyCreative_010121-110822.dta")
-tv_asr <- fread("../datasets/tv/asr_tv2022_fedgov_01012021_11082022.csv")
+cmag <- read_dta("../datasets/tv/2020_creative_level_122120.dta")
+tv_asr <- read.csv("../datasets/tv/tv_2020_fed.csv")
 
-cmag <- cmag %>% select(alt, issue_social_abortion, issue_social_birthcontrol, issue_inflation)
+cmag <- cmag %>% select(alt, issue_social_abortion, issue_social_birthcontrol, issue_economy)
 
-tv_asr <- left_join(tv_asr, cmag, by = c('cmag_vidfile' = 'alt'))
+tv_asr <- merge(tv_asr, cmag, by = "alt")
 
 ab1 <- str_detect(tv_asr$google_asr_text, coll("abort", ignore_case = T))
 ab2 <- str_detect(tv_asr$google_asr_text, coll("planned parenthood", ignore_case = T))
@@ -37,6 +37,48 @@ tv_asr$predict_abortion_keyword <- as.integer(ab)
 
 ab_wrong = tv_asr[tv_asr$issue_social_abortion != tv_asr$predict_abortion_keyword,]
 
+abortion_df <- read.csv("issue_coding/data/ads_where_kantar_wmp_disagree/issue_social_abortion.csv")
+
+tv_asr <- merge(tv_asr, abortion_df, by = "alt")
+
+
+wmp_col <- colnames(tv_asr)[grepl("^ISSUE30", colnames(tv_asr))]
+pred_col <- 'predict_abortion_keyword'
+
+# Calculate precision and recall when WMP coding is the prediction and Kantar is the ground truth
+tp <- sum(tv_asr[,pred_col] == tv_asr[,wmp_col] & tv_asr[,pred_col] == 1)
+fp <- sum(tv_asr[,pred_col] != tv_asr[,wmp_col] & tv_asr[,wmp_col] == 1)
+fn <- sum(tv_asr[,pred_col] != tv_asr[,wmp_col] & tv_asr[,pred_col] == 0)
+precision_wmp_pred <- tp / (tp + fp)
+recall_wmp_pred <- tp / (tp + fn)
+
+# Calculate precision and recall when Kantar coding is the prediction and WMP is the ground truth
+tp <- sum(tv_asr[,pred_col] == tv_asr[,wmp_col] & tv_asr[,wmp_col] == 1)
+fp <- sum(tv_asr[,pred_col] != tv_asr[,wmp_col] & tv_asr[,wmp_col] == 1)
+fn <- sum(tv_asr[,pred_col] != tv_asr[,wmp_col] & tv_asr[,wmp_col] == 0)
+precision_pred_wmp <- tp / (tp + fp)
+recall_pred_wmp <- tp / (tp + fn)
+
+# Add a row to the results dataframe with the calculated values
+abortion_results_df <- data.frame(
+  precision_wmp_pred,
+  recall_wmp_pred,
+  precision_pred_wmp,
+  recall_pred_wmp
+)
+
+fwrite(abortion_results_df, paste0("issue_coding/data/abortion_pred.csv"))
+
+
+
+
+
+
+
+
+
+
+
 inf1 <- str_detect(tv_asr$google_asr_text, coll("inflation", ignore_case = T))
 inf2 <- str_detect(tv_asr$google_asr_text, coll("bidenflation", ignore_case = T))
 inf3 <- str_detect(tv_asr$google_asr_text, coll("groceries", ignore_case = T))
@@ -48,6 +90,45 @@ infl <- c(inf1|inf2|inf3|inf4|inf6|inf5)
 tv_asr$predict_inflation_keyword <- as.integer(infl)
 
 inf_wrong = tv_asr[tv_asr$issue_inflation != tv_asr$predict_inflation_keyword,]
+
+
+inflation_df <- read.csv("issue_coding/data/ads_where_kantar_wmp_disagree/issue_economy.csv")
+
+tv_asr <- merge(tv_asr, inflation_df, by = "alt")
+
+
+wmp_col <- colnames(tv_asr)[grepl("^ISSUE22", colnames(tv_asr))]
+pred_col <- 'predict_inflation_keyword'
+
+# Calculate precision and recall when WMP coding is the prediction and Kantar is the ground truth
+tp <- sum(tv_asr[,pred_col] == tv_asr[,wmp_col] & tv_asr[,pred_col] == 1)
+fp <- sum(tv_asr[,pred_col] != tv_asr[,wmp_col] & tv_asr[,wmp_col] == 1)
+fn <- sum(tv_asr[,pred_col] != tv_asr[,wmp_col] & tv_asr[,pred_col] == 0)
+precision_wmp_pred <- tp / (tp + fp)
+recall_wmp_pred <- tp / (tp + fn)
+
+# Calculate precision and recall when Kantar coding is the prediction and WMP is the ground truth
+tp <- sum(tv_asr[,pred_col] == tv_asr[,wmp_col] & tv_asr[,wmp_col] == 1)
+fp <- sum(tv_asr[,pred_col] != tv_asr[,wmp_col] & tv_asr[,wmp_col] == 1)
+fn <- sum(tv_asr[,pred_col] != tv_asr[,wmp_col] & tv_asr[,wmp_col] == 0)
+precision_pred_wmp <- tp / (tp + fp)
+recall_pred_wmp <- tp / (tp + fn)
+
+# Add a row to the results dataframe with the calculated values
+inflation_results_df <- data.frame(
+  precision_wmp_pred,
+  recall_wmp_pred,
+  precision_pred_wmp,
+  recall_pred_wmp
+)
+
+fwrite(inflation_results_df, paste0("issue_coding/data/inflation_pred.csv"))
+
+
+
+
+#I am not sure about what the rest of the code is for
+
 
 # gas alone not worth it
 # grocery/groceries is worth it -- reduces 45 errors that would otherwise happen
@@ -71,3 +152,7 @@ df$transcript[inflation]
 
 "bidenflation"
 "bideninflation"
+
+
+
+
