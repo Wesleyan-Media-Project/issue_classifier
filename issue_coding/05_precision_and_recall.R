@@ -7,7 +7,7 @@ folder_path <- "data/ads_where_kantar_wmp_disagree"
 file_names <- list.files(folder_path)
 
 # Initialize an empty dataframe to store the results
-results_df <- data.frame( kantar_issue= character(0), wmp_issue= character(0),precision_wmp_kantar = numeric(0), recall_wmp_kantar = numeric(0), precision_kantar_wmp = numeric(0), recall_kantar_wmp = numeric(0))
+results_df <- data.frame( kantar_issue= character(0), wmp_issue= character(0),precision = numeric(0), recall = numeric(0), wmp_total_ones = numeric(0), kantar__total_ones = numeric(0))
 
 # Loop through each file in the folder
 for (file_name in file_names) {
@@ -18,25 +18,23 @@ for (file_name in file_names) {
   wmp_col <- colnames(df)[grepl("^ISSUE", colnames(df))]
   kantar_col <- colnames(df)[grepl("^issue", colnames(df))]
   
-  # Calculate precision and recall when WMP coding is the prediction and Kantar is the ground truth
-  tp <- sum(df[,kantar_col] == df[,wmp_col] & df[,kantar_col] == 1)
-  fp <- sum(df[,kantar_col] != df[,wmp_col] & df[,wmp_col] == 1)
-  fn <- sum(df[,kantar_col] != df[,wmp_col] & df[,kantar_col] == 0)
-  precision_wmp_kantar <- tp / (tp + fp)
-  recall_wmp_kantar <- tp / (tp + fn)
-  
-  # Calculate precision and recall when Kantar coding is the prediction and WMP is the ground truth
+
+  # Calculate precision and recall
   tp <- sum(df[,kantar_col] == df[,wmp_col] & df[,wmp_col] == 1)
   fp <- sum(df[,kantar_col] != df[,wmp_col] & df[,wmp_col] == 1)
   fn <- sum(df[,kantar_col] != df[,wmp_col] & df[,wmp_col] == 0)
-  precision_kantar_wmp <- tp / (tp + fp)
-  recall_kantar_wmp <- tp / (tp + fn)
+  precision <- tp / (tp + fp)
+  recall <- tp / (tp + fn)
+  
+  #Count the number of 1s in the kantar and wmp columns
+  
+  wmp_total_ones <- sum(df[,wmp_col] == 1)
+  kantar__total_ones <- sum(df[,kantar_col] == 1)
+  
   
   # Add a row to the results dataframe with the calculated values
-  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[5], wmp_issue = names(df)[4], precision_wmp_kantar, recall_wmp_kantar, precision_kantar_wmp, recall_kantar_wmp))
+  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[5], wmp_issue = names(df)[4], precision, recall, wmp_total_ones, kantar__total_ones))
 }
 
-fwrite(df_discrep, paste0("data/ads_where_kantar_wmp_disagree/", issue_cmag, ".csv"))
-
-# Write the results dataframe to a CSV file.
+# Write the results dataframe to a CSV file
 write.csv(results_df, "data/precision_recall_results.csv")
