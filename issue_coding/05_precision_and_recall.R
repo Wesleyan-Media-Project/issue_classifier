@@ -29,11 +29,11 @@ for (file_name in file_names) {
   #Count the number of 1s in the kantar and wmp columns
   
   wmp_total_ones <- sum(df[,wmp_col] == 1)
-  kantar__total_ones <- sum(df[,kantar_col] == 1)
+  kantar_total_ones <- sum(df[,kantar_col] == 1)
   
   
   # Add a row to the results dataframe with the calculated values
-  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[5], wmp_issue = names(df)[4], precision, recall, wmp_total_ones, kantar__total_ones))
+  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[5], wmp_issue = names(df)[4], precision, recall, wmp_total_ones, kantar_total_ones))
 }
 
 # Write the results dataframe to a CSV file
