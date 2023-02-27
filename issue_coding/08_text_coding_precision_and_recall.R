@@ -7,10 +7,11 @@ folder_path <- "data/text_coding"
 file_names <- list.files(folder_path)
 
 # Initialize an empty dataframe to store the results
-results_df <- data.frame( kantar_issue= character(0), wmp_issue= character(0),precision = numeric(0), recall = numeric(0), wmp_total_ones = numeric(0), kantar__total_ones = numeric(0))
+results_df <- data.frame( kantar_issue= character(0), wmp_issue= character(0), tc_precision = numeric(0), tc_recall = numeric(0), wmp_total_ones = numeric(0), kantar__total_ones = numeric(0))
 
 # Loop through each file in the folder
 for (file_name in file_names) {
+  
   # Read the CSV file
   df <- read.csv(file.path(folder_path, file_name))
   
@@ -19,7 +20,7 @@ for (file_name in file_names) {
   kantar_col <- colnames(df)[grepl("^issue", colnames(df))]
   combined_col <- colnames(df)[grepl("^combined", colnames(df))]
   
-
+  
   # Calculate precision and recall
   tp <- sum(df[,combined_col] == df[,kantar_col] & df[,kantar_col] == 1)
   fp <- sum(df[,combined_col] != df[,kantar_col] & df[,kantar_col] == 1)
@@ -34,7 +35,7 @@ for (file_name in file_names) {
   
   
   # Add a row to the results dataframe with the calculated values
-  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[5], wmp_issue = names(df)[4], precision, recall, kantar_total_ones, text_total_ones))
+  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[6], wmp_issue = names(df)[5], tc_precision = recall, tc_recall = precision, kantar_total_ones, text_total_ones))
 }
 
 # Write the results dataframe to a CSV file
