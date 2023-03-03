@@ -48,7 +48,7 @@ for (file_name in file_names) {
   # Add a row to the results dataframe with the calculated values
   
 
-  write.csv(dictionary, paste("data/word_freq/", wmp_col, ".csv", sep=""))
+  write.csv(dictionary, paste("data/word_freq/", file_name, ".csv", sep=""))
   
   
   }
