@@ -7,7 +7,7 @@ folder_path <- "data/text_coding"
 file_names <- list.files(folder_path)
 
 # Initialize an empty dataframe to store the results
-results_df <- data.frame( kantar_issue= character(0), wmp_issue= character(0), tc_precision = numeric(0), tc_recall = numeric(0), wmp_total_ones = numeric(0), kantar__total_ones = numeric(0))
+results_df <- data.frame( kantar_issue= character(0), wmp_issue= character(0), tc_precision_change = numeric(0), tc_recall_change = numeric(0), wmp_total_ones = numeric(0), kantar__total_ones = numeric(0))
 
 # Loop through each file in the folder
 for (file_name in file_names) {
@@ -31,12 +31,18 @@ for (file_name in file_names) {
   #Count the number of 1s in the kantar and wmp columns
   
   kantar_total_ones <- sum(df[,kantar_col] == 1)
+  
   text_total_ones <- sum(df[,combined_col] == 1)
   
   
   # Add a row to the results dataframe with the calculated values
-  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[6], wmp_issue = names(df)[5], tc_precision = recall, tc_recall = precision, kantar_total_ones, text_total_ones))
+  results_df <- rbind(results_df, data.frame(kantar_issue = names(df)[6], wmp_issue = names(df)[5], tc_precision_change = recall, tc_recall_change = precision, kantar_total_ones, text_total_ones))
 }
+original <- read.csv("data/precision_recall_results.csv")
+results_df <- merge(results_df, original[, c(2, 4, 5)], by = "kantar_issue")
+
+results_df$tc_precision_change <- results_df$tc_precision_change - results_df$precision
+results_df$tc_recall_change <- results_df$tc_recall_change - results_df$recall
 
 # Write the results dataframe to a CSV file
 write.csv(results_df, "data/text_coding_precision_recall_results.csv")
