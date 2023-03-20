@@ -23,13 +23,16 @@ for (file_name in file_names) {
   wmp_col <- colnames(df)[4]
   kantar_col <- colnames(df)[grepl("^issue", colnames(df))]
   
-    
+  
   
   
   # Calculate precision and recall
   for (i in 1:nrow(df)) {
     if (df[i, 4] == 1) {
       words <- tolower(strsplit(df$transcript[i], " ")[[1]])
+      
+      words<- words[!(words %in% stopwords("en"))]
+      
       # Count the frequency of each word
       word_freq <- table(words)
       # Append the word frequencies to the dictionary
@@ -37,21 +40,20 @@ for (file_name in file_names) {
       
       # Sum the frequencies of each word in the dictionary
     }
-  if (nrow(dictionary) > 0) {
-    dictionary <- aggregate(frequency ~ word, data = dictionary, sum)
-    
-    dictionary <- dictionary[order(-dictionary$frequency),]
-    
+    if (nrow(dictionary) > 0) {
+      dictionary <- aggregate(frequency ~ word, data = dictionary, sum)
+      
+      dictionary <- dictionary[order(-dictionary$frequency),]
+      
       # do something if "df" has at least one row
-  }
+    }
     
-  # Add a row to the results dataframe with the calculated values
-  
-
-  write.csv(dictionary, paste("data/word_freq/", file_name, sep=""))
-  
-  
+    # Add a row to the results dataframe with the calculated values
+    
+    
+    write.csv(dictionary, paste("data/word_freq/", file_name, sep=""))
+    
+    
   }
 }
-
 
