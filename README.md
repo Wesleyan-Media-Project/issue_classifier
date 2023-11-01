@@ -1,4 +1,18 @@
-# Issue Classifier
+# Wesleyan Media Project - Issue_Classifier
+
+Welcome! This repo is a part of the Cross-platform Election Advertising Transparency initiative ([CREATIVE](https://www.creativewmp.com/)) project. CREATIVE is a joint infrastructure project of WMP and privacy-tech-lab at Wesleyan University. CREATIVE provides cross-platform integration and standardization of political ads collected from Google and Facebook. You will also need the repos [datasets](https://github.com/Wesleyan-Media-Project/datasets) to run the script.
+
+This repo is a part of the Final Data Classification step.
+![A picture of the repo pipeline with this repo highlighted](Creative_Pipelines.png)
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Objective](#objective)
+- [Data](#data)
+- [Setup](#setup)
+
+## Introduction
 
 Issue classifier, trained on 2018 and 2020 ads - both TV and Facebook, designed to be applied to uncoded 2022 ads. Based on WMP issue coding - not Kantar.
 
@@ -8,4 +22,40 @@ The 2018 WMP coding is missing a few of the issues that were coded in 2020. Furt
 
 For the final model, to be used for inference, we use a transformer-based multilabel model, mostly based on the [code](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/C9SAIX) by a recent [Political Analysis article](https://www.cambridge.org/core/journals/political-analysis/article/creating-and-comparing-dictionary-word-embedding-and-transformerbased-models-to-measure-discrete-emotions-in-german-political-text/2DA41C0F09DE1CA600B3DCC647302637#article). That paper is for German data though, so I used a Distilbert instead of their German Electra.
 
+## Objective
+
+Each of our repos belongs to one or more of the following categories:
+
+- Data Collection
+- Data Storage & Processing
+- Preliminary Data Classification
+- Final Data Classification
+
+This repo is part of the Final Data Classification section.
+
+## Data
+
+The data created by the scripts in this repo is in `csv` format. They are stored in different folders based on different categories. For example, the performance data is stored in `/performance` folder. It contains the performance of the binary classifier and the multilabel classifier which processes all issues together.
+
 To decide which issues to classify, we looked at which issues occurred at least 100 times in the TV data, and excluded two (Issue 116 and 209) that were problematic. So we have 65 issues. The file `data/issues_of_interest.csv` contains the list this is based on.
+
+## Setup
+
+To run the scripts in this repo, you will need to install the following packages:
+
+For the python scripts that perform the classification, you will need to install:
+
+- `scikit-learn`
+- `pandas`
+- `numpy`
+- `joblib`
+- `transformers`
+- `torch`
+
+For the R scripts you will need to install:
+
+- `data.table`
+- `dplyr`
+- `tidyr`
+- `stringr`
+- `haven`
