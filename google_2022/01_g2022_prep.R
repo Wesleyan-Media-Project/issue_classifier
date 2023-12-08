@@ -1,7 +1,7 @@
 library(data.table)
 library(tidyverse)
 
-path_g22 <- "../google_2022/google2022_adidlevel_merged.csv"
+path_g22 <- "../google_2022/g2022_adid_01062021_11082022_text_v20231203.csv"
 
 out_g22 <- "google_2022/data/google_22_for_inf.csv"
 
