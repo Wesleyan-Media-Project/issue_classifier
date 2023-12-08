@@ -10,9 +10,8 @@ g22 <- fread(path_g22, encoding = "UTF-8")
 
 # Subset
 g22_2 <- g22 %>%
-  select(c(ad_id, wmp_creative_id, ad_title, google_asr_text,
-           aws_ocr_video_text, aws_ocr_img_text, advertiser_id,
-           advertiser_name, ad_text, ad_type, csum_agg))
+  select(c(ad_id, ad_title, google_asr_text, aws_ocr_video_text, 
+           aws_ocr_img_text, advertiser_name, ad_text))
 
 # Aggregate
 g22_3 <- g22_2 %>% 
