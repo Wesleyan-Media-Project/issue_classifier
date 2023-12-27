@@ -8,7 +8,7 @@ out_f22 <- "fb_2022/data/fb_22_for_inf.csv"
 f22 <- fread(path_f22, encoding = "UTF-8")
 
 # Aggregate
-f22_2 <- f22 %>% 
+f22_2 <- f22 %>%
   pivot_longer(-ad_id) %>%
   filter(value != "") %>%
   mutate(id = paste(ad_id, name, sep = "__")) %>%
