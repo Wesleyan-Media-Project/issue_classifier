@@ -1,7 +1,7 @@
 library(data.table)
 library(tidyverse)
 
-path_f22 <- "../fb_2022/fb_2022_adid_text_clean.csv.gz"
+path_f22 <- "../data-post-production/fb_2022/fb_2022_adid_text_clean.csv.gz"
 
 out_f22 <- "fb_2022/data/fb_22_for_inf.csv"
 
