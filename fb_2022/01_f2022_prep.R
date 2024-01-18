@@ -1,7 +1,8 @@
 library(data.table)
 library(tidyverse)
 
-path_f22 <- "../data-post-production/fb_2022/fb_2022_adid_text_clean.csv.gz"
+path_f22 <- "fb_2022_adid_text.csv.gz"
+# source : data-post-production/01-merge-results/01_merge_preprocessed_results
 
 out_f22 <- "fb_2022/data/fb_22_for_inf.csv"
 
