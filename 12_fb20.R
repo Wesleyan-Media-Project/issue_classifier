@@ -27,7 +27,7 @@ clean_brackets <- function(x) {
   x <- str_replace_all(x, '\\"\\"', '\\"')
 }
 
-# fbel_w_train.csv is an oputput of the repo ad_goal_classifier
+# fbel_w_train.csv is an output of the repo ad_goal_classifier
 path_fb20 <- "../ad_goal_classifier/data/fbel_w_train.csv"
 
 # Read in as all character
