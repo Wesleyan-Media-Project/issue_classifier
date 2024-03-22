@@ -3,6 +3,12 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
+# the data required for this processes this script is used for
+# requires television data which we are contractually unable to 
+# share through Github. However, you can request this data by following the 
+# instructions at the following link!
+# https://mediaproject.wesleyan.edu/dataaccess/
+
 # FB 18
 load("data/fb_18_issues_transcripts.rdata")
 
