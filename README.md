@@ -3,7 +3,7 @@
 Welcome! This repo is a part of the Cross-platform Election Advertising Transparency initiative ([CREATIVE](https://www.creativewmp.com/)) project. CREATIVE is a joint infrastructure project of WMP and privacy-tech-lab at Wesleyan University. CREATIVE provides cross-platform integration and standardization of political ads collected from Google and Facebook. You will also need the repos [datasets](https://github.com/Wesleyan-Media-Project/datasets) to run the script. Some parts of the data in the datasets repo include the TV data. Due to contractual reasons, users must apply directly to receive raw TV data. Visit [here](http://mediaproject.wesleyan.edu/dataaccess) and fill out the online request form to access the TV datasets.
 
 This repo is a part of the Compiled Final Data step.
-![A picture of the repo pipeline with this repo highlighted](Creative_Pipeline.png)
+![A picture of the repo pipeline with this repo highlighted](CREATIVE_step4_032524.png)
 
 ## Table of Contents
 
