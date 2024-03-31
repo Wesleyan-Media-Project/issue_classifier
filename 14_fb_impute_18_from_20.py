@@ -11,6 +11,12 @@ import pandas as pd
 import numpy as np
 from joblib import dump, load
 
+# the data required for this processes this script is used for
+# requires television data which we are contractually unable to 
+# share through Github. However, you can request this data by following the 
+# instructions at the following link!
+# https://mediaproject.wesleyan.edu/dataaccess/
+
 df = pd.read_csv("data/fb_18_20_for_imputation.csv")
 
 main_cols = ["alt", "transcript"]

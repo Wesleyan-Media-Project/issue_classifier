@@ -3,6 +3,10 @@ library(haven)
 library(dplyr)
 library(stringr)
 
+# this script requires television data which we are contractually unable to 
+# share through Github. However, you can request this data by following the 
+# instructions at the following link!
+# https://mediaproject.wesleyan.edu/dataaccess/
 p_asr18 <- "data/tv_2018_asr.csv"
 p_wmp18 <- "data/wmp-2018-all-nobltm-CREATIVE-wcoding_v1.0_120820.dta"
 

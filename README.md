@@ -61,3 +61,5 @@ For the R scripts you will need to install:
 - `tidyr`
 - `stringr`
 - `haven`
+
+As an additional note, files in this repo numbered 01 through 21 use TV data. We are contractually unable to share this data through Github, but you can request access to this data by following the steps laid out [at this link](https://mediaproject.wesleyan.edu/dataaccess/). 
