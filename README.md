@@ -1,12 +1,12 @@
 # CREATIVE --- Issue Classifier
 
-Welcome! This repo contains scripts for classifying issues in political ads trained on 2018 and 2020 data.
+Welcome! This repo contains scripts for classifying issues in political ads that are trained on hand-coded 2018 and 2020 advertising data.
 
 This repo is part of the [Cross-platform Election Advertising Transparency Initiative (CREATIVE)](https://www.creativewmp.com/). CREATIVE is an academic research project that has the goal of providing the public with analysis tools for more transparency of political ads across online platforms. In particular, CREATIVE provides cross-platform integration and standardization of political ads collected from Google and Facebook. CREATIVE is a joint project of the [Wesleyan Media Project (WMP)](https://mediaproject.wesleyan.edu/) and the [privacy-tech-lab](https://privacytechlab.org/) at [Wesleyan University](https://www.wesleyan.edu).
 
 To analyze the different dimensions of political ad transparency we have developed an analysis pipeline. The scripts in this repo are part of the Compiled Final Data step in our pipeline.
 
-![A picture of the repo pipeline with this repo highlighted](CREATIVE_step4_032524.png)
+![A picture of the repo pipeline with this repo highlighted](Creative_Pipelines.png)
 
 To run the scripts in this repo you will also need the [datasets repo](https://github.com/Wesleyan-Media-Project/datasets). Some parts of the data in the datasets repo include TV data. Due to contractual reasons users must apply directly to receive raw TV data. Fill out the [online request form](http://mediaproject.wesleyan.edu/dataaccess) to request access to TV datasets.
 
