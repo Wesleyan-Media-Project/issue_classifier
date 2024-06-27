@@ -1,3 +1,8 @@
+# This is a script authored by Widmann and Wich in their 2022 Political Analysis journal article 
+# "Creating and Comparing Dictionary, Word Embedding, and Transformer-Based Models to Measure Discrete Emotions in German Political Text"
+# Source: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/C9SAIX
+# We utilized only the training scripts (e.g., trainer setup, performance report, etc.) from this article for our own purposes. 
+
 import torch
 import numpy as np
 from sklearn import metrics
