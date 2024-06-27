@@ -32,6 +32,7 @@ labels = labels[:-1]
 preds_l = []
 for l in labels:
   
+  print("Looking at issues_rf_" + l + ".joblib")
   clf_rf = load(dir_models + '/issues_rf_' + l + '.joblib')
   predicted = clf_rf.predict(df[text_field])
   

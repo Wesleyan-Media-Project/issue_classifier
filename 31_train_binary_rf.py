@@ -1,3 +1,4 @@
+import os
 import sklearn.model_selection as ms
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
@@ -11,6 +12,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 from joblib import dump, load
+
 
 #results_dir = 'performance'
 
@@ -51,6 +53,10 @@ for g in issue_cols:
   perf.append(df_p)
   
   # Save model to disk
+  print("Adding issues_rf_" + g + ".joblib to folder.")
+  directory = os.path.join("./models", "binary_rf_v1")
+  os.makedirs(directory, exist_ok=True)
+  
   dump(clf_rf, 'models/binary_rf_v1/issues_rf_' + g + '.joblib')
 
 df_ps = pd.concat(perf)

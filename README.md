@@ -6,7 +6,7 @@ This repo is part of the [Cross-platform Election Advertising Transparency Initi
 
 To analyze the different dimensions of political ad transparency we have developed an analysis pipeline. The scripts in this repo are part of the Data Classification step in our pipeline.
 
-![A picture of the repo pipeline with this repo highlighted](Creative_Pipelines.png)
+![A picture of the repo pipeline with this repo highlighted](media/Creative_Pipelines.png)
 
 ## Table of Contents
 
@@ -91,14 +91,15 @@ Given that an ad can have multiple issues - or none - there are two basic approa
 Although we provide scripts for both binary and multi-label classifications, we recommend the multi-label classifier as it provides higher accuracy. For the final model to be used for inference we use a transformer-based multi-label model, mostly based on the [code](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/C9SAIX) by a recent [Political Analysis article](https://www.cambridge.org/core/journals/political-analysis/article/creating-and-comparing-dictionary-word-embedding-and-transformerbased-models-to-measure-discrete-emotions-in-german-political-text/2DA41C0F09DE1CA600B3DCC647302637#article). We utilized only the training scripts (e.g., trainer setup, performance report, etc.) from this article for our own purposes. We only utilize their model training structure and not their training data since that paper is using text data in German to train a text classifier. Additionally, we use the DistilBERT model from Huggingface instead of the model provided by that article (e.g., German Electra) to avoid any issues with domain knowledge and language.
 
 To train the models, run the scripts in our main directory, numbered from 01 to 31.
+
 - [01_tv_merge_2018_2020_asr_with_wmp_issues.R](01_tv_merge_2018_2020_asr_with_wmp_issues.R): This script merges ASR text data for TV ads with the issues of interest. This script requires television data which we are contractually unable to share through Github. However, you can request this data by following the instructions at the following link! (https://mediaproject.wesleyan.edu/dataaccess/). Or, you can skip this step since we provide the output file from script [here](data/issues_asr_18_20.csv).
-- [02_tv_impute_18_from_20.py](02_tv_impute_18_from_20.py): The 2018 WMP coding is missing a few of the issues that were coded in 2020. In other words, we did not code for some of the issues in 2018 which we later coded for in 2020. Furthermore, some of the ads are missing random issues due to coding errors or inconsistencies. Due to both of these problems, we do imputation by training binary classifiers for each issue with missing data. The binary classifiers are improved as a result of this approach since we want to be cautious and err on the side of more negative instances. We want to use as much data for imputation as we can. In addition, the multi-label model can only use the ads for which no issues are missing, even if those other issues do not matter for imputing for just one issue. 
+- [02_tv_impute_18_from_20.py](02_tv_impute_18_from_20.py): The 2018 WMP coding is missing a few of the issues that were coded in 2020. In other words, we did not code for some of the issues in 2018 which we later coded for in 2020. Furthermore, some of the ads are missing random issues due to coding errors or inconsistencies. Due to both of these problems, we do imputation by training binary classifiers for each issue with missing data. The binary classifiers are improved as a result of this approach since we want to be cautious and err on the side of more negative instances. We want to use as much data for imputation as we can. In addition, the multi-label model can only use the ads for which no issues are missing, even if those other issues do not matter for imputing for just one issue.
 - [11_fb18.R](11_fb18.R): This script prepares the training data with Facebook 2018 ads and merges them with the transcripts.
 - [12_fb20.R](12_fb20.R): This script prepares the training data with Facebook 2020 ads and merges them with the transcripts.
 - [13_combine_18_20_fb.R](13_combine_18_20_fb.R): This script merges the training data for Facebook 2018 and 2020.
 - [14_fb_impute_18_from_20.py](14_fb_impute_18_from_20.py): This is the same imputation task, this time for the Facebook 2018 data. Imputation is done by training models on Facebook data and then imputing the missing Facebook data, and training models on TV data and then imputing the missing TV data.
 - [21_merge_tv_with_fb.R](21_merge_tv_with_fb.R): This script merges TV training data with Facebook training data.
-- [31_train_binary_rf.py](31_train_binary_rf.py): This script trains a binary classification model for each issue separately. Thus, if you run this, you will have 65 models, one for each issue. We use Random Forest Classification. 
+- [31_train_binary_rf.py](31_train_binary_rf.py): This script trains a binary classification model for each issue separately. Thus, if you run this, you will have 65 models, one for each issue. We use Random Forest Classification.
 - [31_train_multilabel_trf_v1.ipynb](31_train_multilabel_trf_v1.ipynb): This script trains a multilabel classification model. We use a DistilBERT model from Huggingface for training. Due to having 65 categories and a large text data, this training could take days with a CPU. For context, we used a NVIDIA Tesla P100 GPU with 16GB of memory which took over three hours.
 
 The model performances for both binary and multilabel models are located [here](performance).
@@ -108,18 +109,20 @@ The model performances for both binary and multilabel models are located [here](
 Once you have the trained model, you can run the inference for Facebook and Google 2022 data. Both [Facebook](fb_2022) and [Google](google_2022) have their own folders for their inference scripts. Scripts are numbered in the order that they should be run.
 
 For Facebook 2022:
+
 - [01_f2022_prep.R](fb_2022/01_f2022_prep.R): This prepares the inference data. You will need the [`fb_2022_adid_text.csv.gz`](INSERT FIGSHARE LINKS ONCE READY) data which can be downloaded from Figshare.
 - [02_fb2022_inf_multilabel.ipynb](fb_2022/02_fb2022_inf_multilabel.ipynb) & [02_fb2022_inf_binary.ipynb](fb_2022/02_fb2022_inf_binary.ipynb): These scripts carry out the classification task. The first does the classification using multilabel model while the second classifies data using the binary models.
 - [03_fb2022_post_process.ipynb](fb_2022/03_fb2022_post_process.ipynb): This script processes the output data from the previous step. In particular, it combines the all detected issues for a given ad into one column.
 
 For Google 2022:
+
 - [01_g2022_prep.R](google_2022/01_g2022_prep.R): This prepares the inference data. You will need the [`g2022_adid_01062021_11082022_text.csv.gz`](INSERT FIGSHARE LINKS ONCE READY) data which can be downloaded from Figshare.
 - [02_g2022_inf_multilabel.ipynb](google_2022/02_g2022_inf_multilabel.ipynb) & [02_g2022_inf_binary.ipynb](google_2022/02_g2022_inf_binary.ipynb): These scripts carry out the classification task. The first does the classification using multilabel model while the second classifies data using the binary models.
 - [03_g2022_post_process.ipynb](google_2022/03_g2022_post_process.ipynb): This script processes the output data from the previous step. In particular, it combines the all detected issues for a given ad into one column.
 
 ## 3. Results Storage
 
-The data created by the scripts in this repo is in `csv` format and located [here](data). 
+The data created by the scripts in this repo is in `csv` format and located [here](data).
 
 ## 4. Thank You
 
@@ -129,7 +132,7 @@ The data created by the scripts in this repo is in `csv` format and located [her
 
 <p align="center" style="display: flex; justify-content: center; align-items: center;">
   <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2235006">
-    <img class="img-fluid" src="nsf.png" height="150px" alt="National Science Foundation Logo">
+    <img class="img-fluid" src="media/nsf.png" height="150px" alt="National Science Foundation Logo">
   </a>
 </p>
 
@@ -137,18 +140,18 @@ The data created by the scripts in this repo is in `csv` format and located [her
 
 <p align="center" style="display: flex; justify-content: center; align-items: center;">
   <a href="https://www.creativewmp.com/">
-    <img class="img-fluid" src="CREATIVE_logo.png"  width="220px" alt="CREATIVE Logo">
+    <img class="img-fluid" src="media/CREATIVE_logo.png"  width="220px" alt="CREATIVE Logo">
   </a>
 </p>
 
 <p align="center" style="display: flex; justify-content: center; align-items: center;">
   <a href="https://mediaproject.wesleyan.edu/">
-    <img src="wmp-logo.png" width="218px" height="100px" alt="Wesleyan Media Project logo">
+    <img src="media/wmp-logo.png" width="218px" height="100px" alt="Wesleyan Media Project logo">
   </a>
 </p>
 
 <p align="center" style="display: flex; justify-content: center; align-items: center;">
   <a href="https://privacytechlab.org/" style="margin-right: 20px;">
-    <img src="./plt_logo.png" width="200px" alt="privacy-tech-lab logo">
+    <img src="media/plt_logo.png" width="200px" alt="privacy-tech-lab logo">
   </a>
 </p>

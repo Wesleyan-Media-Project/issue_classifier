@@ -1,5 +1,6 @@
 library(data.table)
-library(tidyverse)
+library(tidyr)
+library(dplyr)
 
 path_g22 <- "g2022_adid_01062021_11082022_text.csv.gz"
 # this is the output table from part of data-post-production repo that merges preprocessed results.
@@ -32,4 +33,7 @@ g22_4 <- g22_3 %>%
 names(g22_4) <- c("text", "id")
 
 # Save
+g_2022_data <- "google_2022/data"
+dir.create(g_2022_data)
+
 fwrite(g22_4, out_g22)

@@ -1,0 +1,12 @@
+# Versions used in most recent testing:
+pandas==2.2.2
+scikit-learn==1.0.2
+numpy==1.26.4
+joblib==1.4.2
+torch==2.3.1
+tqdm==4.66.4
+
+# 31_train_multilabel_trf_v1.ipynb will have you install these manually,
+# but just for reference, the scripts have been tested with:
+transformers==4.41.2
+datasets==2.20.0
