@@ -27,42 +27,71 @@ To decide which issues to classify, we looked at which issues occurred at least 
 
 ### 2.1 Install R and Packages
 
-1. First, make sure you have R installed. While R can be run from the terminal, many people find it easier to use RStudio along with R. Here is a [tutorial for setting up R and RStudio](https://rstudio-education.github.io/hopr/starting.html). The scripts are tested on R 4.0, 4.1, 4.2, 4.3, and 4.4.
+1.  First, make sure you have R installed. While R can be run from the terminal, many people find it easier to use RStudio along with R. Here is a [tutorial for setting up R and RStudio](https://rstudio-education.github.io/hopr/starting.html). The scripts are tested on R 4.0, 4.1, 4.2, 4.3, and 4.4.
 
-2. (THIS IS FROM AD GOAL. IT NEEDS TO BE UPDATED FOR THIS REPO WITH THE APPROPRIATE REQUIREMENTS FILE!!!) Next, make sure you have the following packages installed in R (the exact version we used of each package is listed in the [requirements_r.txt file](https://github.com/Wesleyan-Media-Project/ad_goal_classifier/blob/main/requirements_r.txt). These are the versions we tested our scripts on. Thus, scripts might also work with other versions but not tested). You can install by calling:
+2.  Next, make sure you have the following packages installed in R (the exact version we used of each package is listed in the [requirements_r.txt file](https://github.com/Wesleyan-Media-Project/issue_classifier/blob/main/requirements/requirements_r.txt). These are the versions we tested our scripts on. Scripts may also work with other versions, but we cannot ensure this). You can install the specific versions by calling:
 
-   ```R
-   install.packages('data.table')
-   install.packages("stringr")
-   install.packages("haven")
-   install.packages("dplyr")
-   install.packages("tidyr")
-   ```
+    ```R
+    install.packages("remotes")
 
-3. In order to successfully run each R script, you must first set your working directory. You can achieve this by adding the line `setwd("your/working/directory")` to the top of the R scripts replacing `"your/working/directory"` with whatever directory you are running from. Additionally, make sure that the locations to which you are retrieving input files and/or sending output files are accurate.
+    install_version("data.table", version="1.15.4")
+    install_version("stringr", version="1.5.1")
+    install_version("stringi", version="1.7.12")
+    install_version("haven", version="2.5.4")
+    install_version("dplyr", version="1.1.4")
+    install_version("tidyr", version="1.3.1")
+    ```
 
-4. In order to execute an R script you can run the following command from your terminal from within the directory of the script replacing `file.R` with the file name of the script you want to run:
+    Or you can install the most recent versions of each package by running:
 
-   ```bash
-   Rscript file.R
-   ```
+    ```R
+    install.packages('data.table')
+    install.packages("stringr")
+    install.packages("stringi")
+    install.packages("haven")
+    install.packages("dplyr")
+    install.packages("tidyr")
+    ```
+
+3.  In order to successfully run each R script, you must first set your working directory. You can achieve this by adding the line `setwd("your/working/directory")` to the top of the R scripts replacing `"your/working/directory"` with whatever directory you are running from. Additionally, make sure that the locations to which you are retrieving input files and/or sending output files are accurate.
+
+4.  In order to execute an R script you can run the following command from your terminal from within the directory of the script replacing `file.R` with the file name of the script you want to run:
+
+    ```bash
+    Rscript file.R
+    ```
 
 ### 2.2 Install Python and Packages
 
 1. First, make sure you have [Python](https://www.python.org/) installed. The scripts are tested on Python 3.9 and 3.10.
 
-2. (THIS IS FROM AD GOAL. IT NEEDS TO BE UPDATED FOR THIS REPO WITH THE APPROPRIATE REQUIREMENTS FILE!!!) In addition, make sure you have the following packages installed in Python (the exact version we use for each package is listed in the [requirements_py.txt file](https://github.com/Wesleyan-Media-Project/ad_goal_classifier/blob/main/requirements_py.txt). These are the versions we tested our scripts on. Thus, scripts might also work with other versions but not tested). You can install by running the following command in your terminal:
+2. In addition, make sure you have the following packages installed in Python (the exact version we use for each package is listed in the [requirements_py.txt file](https://github.com/Wesleyan-Media-Project/issue_classifier/blob/main/requirements/requirements_py.txt). These are the versions we tested our scripts on. Scripts may also work with other versions, but we cannot ensure this). You can install by running the following command in your terminal:
 
    ```bash
-   pip install pandas
-   pip install scikit-learn
-   pip install numpy
-   pip install joblib
-   pip install transformers
-   pip install torch
+   pip3 install pandas==2.2.2
+   pip3 install scikit-learn==1.0.2
+   pip3 install numpy==1.26.4
+   pip3 install joblib==1.4.2
+   pip3 install torch==2.3.1
+   pip3 install tqdm==4.66.4
+   pip3 install transformers==4.41.2
+   pip3 install datasets==2.20.0
    ```
 
-3. In order to execute a Python script you can run the following command from your terminal from within the directory of the script replacing `file.py` with the file name of the script you want to run:
+3. We recommend creating and activating a Python virtual environment before running the .py and .ipynb scripts. We create it using Python 3.10 since the scripts have been previously tested with this version:
+
+   ```bash
+   python3.10 -m venv venv
+   source venv/bin/activate
+   ```
+
+   If you want to stop the virtual environment at some point, you can deactivate it:
+
+   ```bash
+   deactivate
+   ```
+
+4. In order to execute a Python script you can run the following command from your terminal from within the directory of the script replacing `file.py` with the file name of the script you want to run:
 
    ```bash
    python3 file.py
@@ -155,3 +184,4 @@ The data created by the scripts in this repo is in `csv` format and located [her
     <img src="media/plt_logo.png" width="200px" alt="privacy-tech-lab logo">
   </a>
 </p>
+`````
