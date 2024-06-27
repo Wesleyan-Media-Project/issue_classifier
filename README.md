@@ -53,7 +53,24 @@ To decide which issues to classify, we looked at which issues occurred at least 
     install.packages("tidyr")
     ```
 
-3.  In order to successfully run each R script, you must first set your working directory. You can achieve this by adding the line `setwd("your/working/directory")` to the top of the R scripts replacing `"your/working/directory"` with whatever directory you are running from. Additionally, make sure that the locations to which you are retrieving input files and/or sending output files are accurate.
+3.  In order to successfully run each R script you must first set your working directory. The working directory is the location on your computer that R will use for reading and writing files. You can do so by adding the line `setwd("your/working/directory")` to the top of the R scripts, replacing `"your/working/directory"` with your actual working directory. You must make sure that your working directory is in agreement with the paths to where any input files exist and where output files will be created.
+
+    For instance, in script `01_prepare_fbel.R` the input and output are written as follows:
+
+    ```R
+    # Input data
+    path_input_data <- "data/fbel_w_train.csv"
+    # Output data
+    path_output_data <- "data/fbel_prepared.csv"
+    ```
+
+    If you do not wish to change either of these paths, your working directory should be set as follows:
+
+    ```R
+    setwd("/local/path/to/ad_goal_classifier/")
+    ```
+
+    where `/local/path/to/` represents the location at which the ad_goal_classifier folder resides on your computer.
 
 4.  In order to execute an R script you can run the following command from your terminal from within the directory of the script replacing `file.R` with the file name of the script you want to run:
 
