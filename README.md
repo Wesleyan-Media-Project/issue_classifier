@@ -156,13 +156,13 @@ Once you have the trained model, you can run the inference for Facebook and Goog
 
 For Facebook 2022:
 
-- [01_f2022_prep.R](fb_2022/01_f2022_prep.R): This prepares the inference data. You will need the [`fb_2022_adid_text.csv.gz`](https://figshare.wesleyan.edu/account/articles/26124295) data which can be downloaded from Figshare.
+- [01_f2022_prep.R](fb_2022/01_f2022_prep.R): This prepares the inference data. You will need the [`fb_2022_adid_text.csv.gz`](https://www.creativewmp.com/data-access/) data which can be downloaded from Figshare. Please note that to access the data stored on Figshare, you will need to fill out a brief form and will then immediately get data access.
 - [02_fb2022_inf_multilabel.ipynb](fb_2022/02_fb2022_inf_multilabel.ipynb) & [02_fb2022_inf_binary.ipynb](fb_2022/02_fb2022_inf_binary.ipynb): These scripts carry out the classification task. The first does the classification using multilabel model while the second classifies data using the binary models.
 - [03_fb2022_post_process.ipynb](fb_2022/03_fb2022_post_process.ipynb): This script processes the output data from the previous step. In particular, it combines the all detected issues for a given ad into one column.
 
 For Google 2022:
 
-- [01_g2022_prep.R](google_2022/01_g2022_prep.R): This prepares the inference data. You will need the [`g2022_adid_01062021_11082022_text.csv.gz`](https://figshare.wesleyan.edu/account/articles/26124343) data which can be downloaded from Figshare.
+- [01_g2022_prep.R](google_2022/01_g2022_prep.R): This prepares the inference data. You will need the [`g2022_adid_01062021_11082022_text.csv.gz`](https://www.creativewmp.com/data-access/) data which can be downloaded from Figshare. Please note that to access the data stored on Figshare, you will need to fill out a brief form and then immediately will get data access.
 - [02_g2022_inf_multilabel.ipynb](google_2022/02_g2022_inf_multilabel.ipynb) & [02_g2022_inf_binary.ipynb](google_2022/02_g2022_inf_binary.ipynb): These scripts carry out the classification task. The first does the classification using multilabel model while the second classifies data using the binary models.
 - [03_g2022_post_process.ipynb](google_2022/03_g2022_post_process.ipynb): This script processes the output data from the previous step. In particular, it combines the all detected issues for a given ad into one column.
 
