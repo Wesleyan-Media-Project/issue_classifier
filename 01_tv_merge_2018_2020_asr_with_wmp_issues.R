@@ -3,10 +3,6 @@ library(haven)
 library(dplyr)
 library(stringr)
 
-# this script requires television data which we are contractually unable to 
-# share through Github. However, you can request this data by following the 
-# instructions at the following link!
-# https://mediaproject.wesleyan.edu/dataaccess/
 p_asr18 <- "data/tv_2018_asr.csv"
 p_wmp18 <- "data/wmp-2018-all-nobltm-CREATIVE-wcoding_v1.0_120820.dta"
 
@@ -27,7 +23,7 @@ wmp18 <- read_dta(p_wmp18)
 issue_vars <- names(wmp18)[stringr::str_detect(names(wmp18), "issue[0-9]")]
 wmp18$filename <- str_remove(wmp18$link, "http://mycmag.kantarmediana.com/KMIcmagvidbin2/") %>% str_remove(".wmv")
 wmp18 <- wmp18[,c('filename', issue_vars)]
-wmp18 <- wmp18 %>% select(-c(issue97_txt,issue97)) # Kick out 'other' issue
+wmp18 <- wmp18 %>% select(-c(issue97_txt, issue97)) # Kick out 'other' issue
 na_row <- apply(wmp18[,-1], 1, function(x){all(is.na(x))})
 wmp18 <- wmp18[!na_row,]
 names(wmp18)[-1] <- toupper(names(wmp18)[-1])
@@ -65,10 +61,17 @@ df20$alt <- paste0("tv20-", df20$alt)
 #----
 df <- bind_rows(df18, df20)
 
+# Read issues of interest
 issues <- fread(p_issues_of_interest)
-issues <- issues$issue_code[issues$issue_frequency>=100]
-issues <- issues[order(as.integer(str_remove(issues, "ISSUE")))] # sort issue columns
-issues <- issues[!issues %in% c("ISSUE116", "ISSUE209")]
+issues <- issues$issue_code[issues$issue_frequency >= 100]
+issues <- issues[order(as.integer(str_remove(issues, "ISSUE")))]  # Sort issue columns
 
-df <- df[,c('alt', 'transcript', issues)]
+# Ensure ISSUE209 and ISSUE215 are always included
+issues <- issues[!issues %in% c("ISSUE116")]  # Remove ISSUE116
+issues <- c("ISSUE209", "ISSUE215", issues)  # Ensure ISSUE209 and ISSUE215 are included
+
+# Subset df to include 'alt', 'transcript', and the selected issue columns
+df <- df[, c('alt', 'transcript', issues)]
+
+# Save the result
 fwrite(df, "data/issues_asr_18_20.csv")
