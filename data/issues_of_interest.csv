@@ -1,100 +1,100 @@
 issue_code,issue_frequency,label18,label20,of_interest
-ISSUE53,4472,Health care,Health Care (not prescription drugs),Yes
 ISSUE10,3739,Taxes,=,Yes
-ISSUE16,3319,Business,=,""
-ISSUE209,3091,,Healthcare expansion/access,""
-ISSUE18,2922,Employment / Jobs,=,Yes
-ISSUE50,2026,Education/Schools,=,Yes
-ISSUE95,1511,Immigration,=,""
-ISSUE90,1467,Campaign Finance Reform,=,Yes
-ISSUE208,1456,,Disease/COVID19,""
-ISSUE62,1343,Veterans,=,Yes
-ISSUE22,1256,Economy (generic reference),=,Yes
-ISSUE116,1227,,Medicare for all,""
-ISSUE91,1029,Government Ethics/Scandal,=,""
-ISSUE37,1021,Gun control / guns,Guns,Yes
-ISSUE32,1019,Moral/Family/Religious Values,=,""
-ISSUE55,984,Medicare,=,Yes
-ISSUE60,957,Military/Defense (generic reference),=,Yes
-ISSUE54,885,Prescription Drugs,=,Yes
-ISSUE40,870,Crime,=,""
-ISSUE12,759,Government Spending,=,Yes
-ISSUE102,713,Seniors (not Medicare),=,""
-ISSUE30,676,Abortion,=,Yes
-ISSUE11,640,Deficit / Budget / Debt,=,""
-ISSUE103,613,Emergency Preparedness/Response,=,""
-ISSUE83,574,Energy Policy,=,Yes
-ISSUE56,571,Social Security,=,""
-ISSUE15,545,Farming,=,""
-ISSUE80,541,Environment (generic reference),=,Yes
-ISSUE59,502,ACA/Obamacare,"ACA/Obamacare/Health care law, etc.",Yes
-ISSUE212,479,Police brutality / racial violence,Police/Police Brutality/Racial Violence,Yes
-ISSUE104,449,Transportation/Infrastructure,=,""
-ISSUE200,414,Domestic violence / sexual assault / harassment,Domestic Violence/Sexual Assault/Harassment,Yes
-ISSUE24,404,Tax reform bill / tax overhaul / tax leg from 2017,Does the story mention the Tax Reform Bill/Tax Overhaul/Tax Legislation (from 20,""
-ISSUE65,397,China,=,""
-ISSUE221,397,,Protest/Riots,""
-ISSUE105,382,2017 efforts at health reform / AHCA / Trumpcare,Health reform/AHCA/Trumpcare/2017 Republican efforts to repeal,Yes
-ISSUE14,348,Minimum Wage,Minimum Wage/Wages,Yes
-ISSUE106,315,Opioids/Rx abuse,Opioids/Prescription Drug Abuse,Yes
-ISSUE39,311,Civil rights / racial discrimination,Civil Rights/Racial Discrimination,Yes
-ISSUE13,308,Recession / Economic Stimulus,=,Yes
 ISSUE101,299,Gender discrimniation (not LGBTQ),Gender Discrimination (not LGBTQ),Yes
-ISSUE96,293,Local Issues,=,""
-ISSUE41,283,Narcotics/Illegal Drugs,=,""
-ISSUE20,272,Trade / Globalization,=,Yes
-ISSUE218,272,,Medical Bills,""
-ISSUE98,269,Government Regulations,=,""
-ISSUE21,261,Housing / Sub-prime Mortgages,=,Yes
-ISSUE43,234,Supreme Court/Judiciary,=,""
-ISSUE82,228,Climate Change / Global Warming,Global Warming / Climate Change,Yes
-ISSUE118,228,,Socialism,""
-ISSUE45,226,Incarceration/Sentencing,=,Yes
-ISSUE210,222,Substance abuse,Substance Abuse (not opioids/prescription drugs),Yes
-ISSUE58,213,Women's Health,=,Yes
-ISSUE69,194,Terror/Terrorism/Terrorist,=,Yes
-ISSUE70,184,Iraq/War in Iraq,=,""
-ISSUE92,180,Corporate Fraud,=,""
-ISSUE57,177,Welfare,=,Yes
-ISSUE111,174,,Impeachment,""
-ISSUE17,154,Union,=,""
-ISSUE23,149,Economic Disparity / Income Inequality,=,Yes
-ISSUE93,136,Term Limits,=,""
-ISSUE61,135,Foreign Policy (generic reference),=,Yes
-ISSUE52,121,Child Care/Family Leave,=,Yes
-ISSUE67,115,Afghanistan/War in Afghanistan,=,""
-ISSUE68,112,September 11th,=,""
-ISSUE31,102,LGBTQ issues/rights,LGBTQ Issues/Rights,Yes
+ISSUE102,713,Seniors (not Medicare),=,
+ISSUE103,613,Emergency Preparedness/Response,=,
+ISSUE104,449,Transportation/Infrastructure,=,
+ISSUE105,382,2017 efforts at health reform / AHCA / Trumpcare,Health reform/AHCA/Trumpcare/2017 Republican efforts to repeal,Yes
+ISSUE106,315,Opioids/Rx abuse,Opioids/Prescription Drug Abuse,Yes
+ISSUE107,4,#metoo / #timesup,#MeToo #TimesUp,
+ISSUE108,26,Parkland / Stoneman Doughlas High School,Parkland shooting/ Stoneman Douglas High School,
+ISSUE109,95,DACA / Dreamers,DACA/Dreamers,
+ISSUE11,640,Deficit / Budget / Debt,=,
+ISSUE110,91,,Medicaid,
+ISSUE111,174,,Impeachment,
+ISSUE112,5,,Disability Rights/Benefits,
+ISSUE113,90,,Pollution,
+ISSUE115,29,,Ukraine,
+ISSUE116,1227,,Medicare for all,
+ISSUE117,93,,Universal health care or healthcare for all,
+ISSUE118,228,,Socialism,
+ISSUE12,759,Government Spending,=,Yes
+ISSUE13,308,Recession / Economic Stimulus,=,Yes
+ISSUE14,348,Minimum Wage,Minimum Wage/Wages,Yes
+ISSUE15,545,Farming,=,
+ISSUE16,3319,Business,=,
+ISSUE17,154,Union,=,
+ISSUE18,2922,Employment / Jobs,=,Yes
 ISSUE19,100,Poverty,=,Yes
-ISSUE109,95,DACA / Dreamers,DACA/Dreamers,""
-ISSUE117,93,,Universal health care or healthcare for all,""
-ISSUE110,91,,Medicaid,""
-ISSUE113,90,,Pollution,""
-ISSUE75,74,Russia / Putin,Russia/Putin,""
-ISSUE72,58,Iran,=,""
-ISSUE38,58,Civil Liberties/Privacy,=,""
-ISSUE215,55,,Cost of Living,""
-ISSUE217,49,,Debt (personal),""
-ISSUE73,36,ISIL/ISIS,=,""
-ISSUE99,36,Government Shutdown,=,""
-ISSUE220,35,,Socialized medicine,""
-ISSUE115,29,,Ukraine,""
-ISSUE108,26,Parkland / Stoneman Doughlas High School,Parkland shooting/ Stoneman Douglas High School,""
-ISSUE64,24,Nuclear Proliferation,=,""
-ISSUE76,23,North Korea / Kim Jong Un,North Korea/Kim Jong Un,""
-ISSUE219,22,,Vaccines,""
-ISSUE66,21,Middle East,=,""
-ISSUE44,18,Marijuana,=,""
-ISSUE71,12,Israel,=,""
+ISSUE20,272,Trade / Globalization,=,Yes
+ISSUE200,414,Domestic violence / sexual assault / harassment,Domestic Violence/Sexual Assault/Harassment,Yes
+ISSUE208,1456,,Disease/COVID19,
+ISSUE209,3091,,Healthcare expansion/access,Yes
+ISSUE21,261,Housing / Sub-prime Mortgages,=,Yes
+ISSUE210,222,Substance abuse,Substance Abuse (not opioids/prescription drugs),Yes
+ISSUE212,479,Police brutality / racial violence,Police/Police Brutality/Racial Violence,Yes
+ISSUE215,55,,Cost of Living,Yes
+ISSUE217,49,,Debt (personal),
+ISSUE218,272,,Medical Bills,
+ISSUE219,22,,Vaccines,
+ISSUE22,1256,Economy (generic reference),=,Yes
+ISSUE220,35,,Socialized medicine,
+ISSUE221,397,,Protest/Riots,
+ISSUE23,149,Economic Disparity / Income Inequality,=,Yes
+ISSUE24,404,Tax reform bill / tax overhaul / tax leg from 2017,Does the story mention the Tax Reform Bill/Tax Overhaul/Tax Legislation (from 20,
+ISSUE30,676,Abortion,=,Yes
+ISSUE31,102,LGBTQ issues/rights,LGBTQ Issues/Rights,Yes
+ISSUE32,1019,Moral/Family/Religious Values,=,
+ISSUE33,8,Drugs-Issues Tobacco,Tabacco,
+ISSUE34,4,Affirmative Action,=,
+ISSUE35,1,Gambling,=,
+ISSUE36,0,Assisted Suicide/Euthanasia,=,
+ISSUE37,1021,Gun control / guns,Guns,Yes
+ISSUE38,58,Civil Liberties/Privacy,=,
+ISSUE39,311,Civil rights / racial discrimination,Civil Rights/Racial Discrimination,Yes
+ISSUE40,870,Crime,=,
+ISSUE41,283,Narcotics/Illegal Drugs,=,
+ISSUE42,7,Capital Punishment,=,
+ISSUE43,234,Supreme Court/Judiciary,=,
+ISSUE44,18,Marijuana,=,
+ISSUE45,226,Incarceration/Sentencing,=,Yes
+ISSUE50,2026,Education/Schools,=,Yes
 ISSUE51,9,Lottery for Education,=,Yes
-ISSUE84,9,Keystone XL Pipeline,=,""
-ISSUE33,8,Drugs-Issues Tobacco,Tabacco,""
-ISSUE74,7,Syria,=,""
-ISSUE42,7,Capital Punishment,=,""
-ISSUE63,5,Foreign Aid,=,""
-ISSUE112,5,,Disability Rights/Benefits,""
-ISSUE107,4,#metoo / #timesup,#MeToo #TimesUp,""
-ISSUE34,4,Affirmative Action,=,""
-ISSUE94,2,Pledge of Allegiance (restrictions on),=,""
-ISSUE35,1,Gambling,=,""
-ISSUE36,0,Assisted Suicide/Euthanasia,=,""
+ISSUE52,121,Child Care/Family Leave,=,Yes
+ISSUE53,4472,Health care,Health Care (not prescription drugs),Yes
+ISSUE54,885,Prescription Drugs,=,Yes
+ISSUE55,984,Medicare,=,Yes
+ISSUE56,571,Social Security,=,
+ISSUE57,177,Welfare,=,Yes
+ISSUE58,213,Women's Health,=,Yes
+ISSUE59,502,ACA/Obamacare,"ACA/Obamacare/Health care law, etc.",Yes
+ISSUE60,957,Military/Defense (generic reference),=,Yes
+ISSUE61,135,Foreign Policy (generic reference),=,Yes
+ISSUE62,1343,Veterans,=,Yes
+ISSUE63,5,Foreign Aid,=,
+ISSUE64,24,Nuclear Proliferation,=,
+ISSUE65,397,China,=,
+ISSUE66,21,Middle East,=,
+ISSUE67,115,Afghanistan/War in Afghanistan,=,
+ISSUE68,112,September 11th,=,
+ISSUE69,194,Terror/Terrorism/Terrorist,=,Yes
+ISSUE70,184,Iraq/War in Iraq,=,
+ISSUE71,12,Israel,=,
+ISSUE72,58,Iran,=,
+ISSUE73,36,ISIL/ISIS,=,
+ISSUE74,7,Syria,=,
+ISSUE75,74,Russia / Putin,Russia/Putin,
+ISSUE76,23,North Korea / Kim Jong Un,North Korea/Kim Jong Un,
+ISSUE80,541,Environment (generic reference),=,Yes
+ISSUE82,228,Climate Change / Global Warming,Global Warming / Climate Change,Yes
+ISSUE83,574,Energy Policy,=,Yes
+ISSUE84,9,Keystone XL Pipeline,=,
+ISSUE90,1467,Campaign Finance Reform,=,Yes
+ISSUE91,1029,Government Ethics/Scandal,=,
+ISSUE92,180,Corporate Fraud,=,
+ISSUE93,136,Term Limits,=,
+ISSUE94,2,Pledge of Allegiance (restrictions on),=,
+ISSUE95,1511,Immigration,=,
+ISSUE96,293,Local Issues,=,
+ISSUE98,269,Government Regulations,=,
+ISSUE99,36,Government Shutdown,=,
