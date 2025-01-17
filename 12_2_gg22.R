@@ -62,7 +62,7 @@ text <- text %>% select(c(ad_id, ad_title, ad_text,
 # Combine text columns into one column 'transcript'
 text <- text %>%
   mutate(ad_id = str_replace(ad_id, "x_", "gg22-")) %>%
-  mutate(transcript = paste(ad_id, ad_title, ad_text,
+  mutate(transcript = paste(ad_title, ad_text,
                             ocr, asr, description, sep = " ")) %>%
   mutate(transcript = str_squish(transcript)) %>%
   select(ad_id, transcript) # Keep only ad_id and the new transcript column
