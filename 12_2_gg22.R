@@ -59,11 +59,11 @@ text <- text %>% rename(asr = google_asr_text)
 text <- text %>% select(c(ad_id, ad_title, ad_text,
                            ocr, asr, description))
 
-# Combine text columns into one column 'transcript'
+# Combine text columns into one column 'transcript' and remove null values in rows
 text <- text %>%
   mutate(ad_id = str_replace(ad_id, "x_", "gg22-")) %>%
-  mutate(transcript = paste(ad_title, ad_text,
-                            ocr, asr, description, sep = " ")) %>%
+  mutate(transcript = pmap_chr(list(ad_title, ad_text,
+                                      ocr, asr, description), ~paste(na.omit(c(...)), collapse = " "))) %>%
   mutate(transcript = str_squish(transcript)) %>%
   select(ad_id, transcript) # Keep only ad_id and the new transcript column
 
