@@ -37,10 +37,8 @@ gg22$ad_id <- gg22$adid
 gg22_2 <- gg22 %>%
   select(ad_id, starts_with("ISSUE")) %>% # Select relevant columns
   filter(!if_all(starts_with("ISSUE"), is.na)) %>% # Drop rows where all ISSUE columns are NA
-  mutate(across(-c(ad_id), ~ ifelse(is.na(.), "", .))) %>% # Replace NA with empty string
-  mutate(across(-c(ad_id), ~ ifelse(. == "False", "", .))) %>% # Replace "False" with empty string
-  mutate(across(-c(ad_id), ~ ifelse(. == "" | is.na(.), 0, as.numeric(.)))) %>% # Binarize: empty or NA to 0, keep existing 0/1
-  mutate(ad_id = str_replace(ad_id, "x_", "fb22-")) # Replace "x_" in ad_id
+  mutate(across(-ad_id, ~ replace_na(., 0))) %>% # replace NA with 0s
+  mutate(ad_id = str_c("gg22-", ad_id)) # Prepend "gg22-" in ad_id
 
 #Add in the text
 path_ad_text <- "../data_post_production/g2022_adid_text.csv.gz"
@@ -59,15 +57,15 @@ text <- text %>% rename(asr = google_asr_text)
 text <- text %>% select(c(ad_id, ad_title, ad_text,
                            ocr, asr, description))
 
-# Combine text columns into one column 'transcript' and remove null values in rows
+# Combine text columns into one column 'transcript'
 text <- text %>%
-  mutate(ad_id = str_replace(ad_id, "x_", "gg22-")) %>%
+  mutate(ad_id = str_c("gg22-", ad_id)) %>%
   mutate(transcript = pmap_chr(list(ad_title, ad_text,
-                                      ocr, asr, description), ~paste(na.omit(c(...)), collapse = " "))) %>%
+                                    ocr, asr, description), ~paste(na.omit(c(...)), collapse = " "))) %>%
   mutate(transcript = str_squish(transcript)) %>%
   select(ad_id, transcript) # Keep only ad_id and the new transcript column
 
-# Add the transcript column to fb22_2 by joining on ad_id
+# Add the transcript column to gg22_2 by joining on ad_id
 gg22_3 <- gg22_2 %>%
   left_join(text, by = "ad_id") %>%
   rename(alt = ad_id)
