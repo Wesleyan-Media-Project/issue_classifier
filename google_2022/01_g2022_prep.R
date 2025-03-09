@@ -3,7 +3,7 @@ library(tidyverse)
 
 path_g22 <- "../google_2022/g2022_adid_text.csv.gz"
 
-out_g22 <- "google_2022/data/google_22_for_inf.csv"
+out_g22 <- "data/google_22_for_inf.csv"
 
 g22 <- fread(path_g22, encoding = "UTF-8")
 

@@ -3,7 +3,7 @@ library(tidyverse)
 
 path_f22 <- "../fb_2022/fb_2022_adid_text.csv.gz"
 
-out_f22 <- "fb_2022/data/fb_22_for_inf.csv"
+out_f22 <- "data/fb_22_for_inf.csv"
 
 f22 <- fread(path_f22, encoding = "UTF-8")
 
