@@ -17,10 +17,11 @@ To analyze the different dimensions of political ad transparency we have develop
 
 ## 1. Overview
 
-The issue classifier, trained on 2018 and 2020 ads - both TV and Facebook - is designed to be applied to uncoded 2022 ads. It is based on issues as coded by the WMP. In total, we code ads into 65 different issue categories based on which issue an ad is focused on.
+The issue classifier, trained on 2022 ads - Meta, Google, and TV - is designed to be applied to uncoded 2022 ads. It is based on issues as coded by the WMP. In total, we code ads into 25 different issue categories based on which issue an ad is focused on.
 
-To decide which issues to classify, we looked at which issues occurred at least 100 times in the TV data, and excluded two (Issue 116 and 209) that were problematic. So we have 65 issues. For a list of the issues of interest, see [this spreadsheet](https://github.com/Wesleyan-Media-Project/issue_classifier/blob/main/data/issues_of_interest.csv).
-
+These 25 issues were the top 25 issues that appeared in 2022 election advertising on TV, identified by the Wesleyan Media Project. 
+<!-- To decide which issues to classify, we looked at which issues occurred at least 100 times in the TV data, and excluded two (Issue 116 and 209) that were problematic. So we have 65 issues. For a list of the issues of interest, see [this spreadsheet](https://github.com/Wesleyan-Media-Project/issue_classifier/blob/main/data/issues_of_interest.csv).
+ -->
 ## 2. Setup
 
 **NOTE**: Some parts of the data in the datasets repo include TV data. In particular, files in this repo numbered 01 through 21 use TV data. Due to contractual reasons users must apply directly to receive raw TV data. Fill out the [online request form](http://mediaproject.wesleyan.edu/dataaccess) to request access to TV datasets.
@@ -140,7 +141,7 @@ To train the models, run the scripts in our `code` directory.
 - [prepare_train_fb22.R](code/prepare_train_fb22.R), [prepare_train_g22.R](code/prepare_train_gg22.R) & [prepare_train_tv22.R](code/prepare_train_tv22.R): These scripts merge manually coded issue labels and (cleaned up) ad content for Meta, Google and TV ads respectively.
 - [prepare_train_merge_tv_fb_gg.R](code/prepare_train_merge_tv_fb_gg.R): This script merges Meta, Google, and TV 2022 ad content and issue labels into a dataset for training, validation and test.
 - [train_binary_rf.py](code/train_binary_rf.py): This script trains a binary classification model for each issue separately. Thus, if you run this, you will have 25 models, one for each issue. We use Random Forest Classification.
-- [train_multilabel_trf_v4.py](code/train_multilabel_trf_v4.py): This script trains a multilabel classification model. We use a DistilBERT model from Huggingface for training. Due to having 25 categories (top 25 issues that appeared in 2022 election advertising on TV, obtained via Wesleyan Media Project) and a large text data, this training could take days with a CPU. For context, we used a NVIDIA Tesla P100 GPU with 16GB of memory which took over three hours.
+- [train_multilabel_trf_v4.py](code/train_multilabel_trf_v4.py): This script trains a multilabel classification model. We use a DistilBERT model from Huggingface for training. Due to having 25 categories and a large text data, this training could take days with a CPU. For context, we used a NVIDIA Tesla P100 GPU with 16GB of memory which took over three hours.
 
 The model performances for both binary and multilabel models are located [here](performance).
 
