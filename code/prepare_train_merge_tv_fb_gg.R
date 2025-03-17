@@ -5,14 +5,14 @@ library(stringr)
 library(readr)
 
 # Load TV 2022 transcripts with issue codes
-path_train <- "data/tv22_transcripts_issue_codes.csv"
+path_train <- "../data/tv22_transcripts_issue_codes.csv"
 train <- read_csv(path_train)
 
 # Load Meta and Google 2022 hand coded issues
-path_fb22 <- "data/fb_2022.rdata"
+path_fb22 <- "../data/fb_2022.rdata"
 load(path_fb22)
 
-path_gg22 <- "data/gg_2022.rdata"
+path_gg22 <- "../data/gg_2022.rdata"
 load(path_gg22)
 
 # Keep only top 25 issues from TV ads
@@ -36,4 +36,4 @@ gg22 <- gg22_3 %>%
 
 df <- bind_rows(train2, fb22)
 
-fwrite(df, "data/issues_tv_fb_gg_22.csv")
+fwrite(df, "../data/issues_tv_fb_gg_22.csv")
